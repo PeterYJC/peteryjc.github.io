@@ -11,18 +11,19 @@
 
 
     <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="keywords" content="test">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hello World">
 <meta property="og:url" content="https://skydai.github.io/2019/09/29/hello-world/index.html">
 <meta property="og:site_name" content="米兰小铁匠">
 <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://skydai.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2019-09-28T16:02:57.783Z">
+<meta property="og:image" content="https://skydai.github.io/gallery/thumbnails/desert.jpg">
+<meta property="og:updated_time" content="2019-10-04T18:07:06.005Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hello World">
 <meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="twitter:image" content="https://skydai.github.io/images/og_image.png">
+<meta name="twitter:image" content="https://skydai.github.io/gallery/thumbnails/desert.jpg">
 <meta name="twitter:creator" content="@loststarlights">
 <meta name="twitter:site" content="https://twitter.com/loststarlights">
 
@@ -126,6 +127,10 @@ var _hmt = _hmt || [];
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="Search" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -142,11 +147,21 @@ var _hmt = _hmt || [];
                 <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
 <div class="card">
     
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/thumbnails/desert.jpg" alt="Hello World">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-09-28T16:02:57.782Z">2019-09-29</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/test/">test</a>
+                </div>
                 
                 
                 <span class="level-item has-text-grey">
@@ -184,6 +199,15 @@ var _hmt = _hmt || [];
 
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/test/">test</a>
+                </div>
+            </div>
         </div>
         
         
@@ -302,20 +326,20 @@ var _hmt = _hmt || [];
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categories
+                        Category
                     </p>
                     <p class="title has-text-weight-normal">
-                        0
+                        1
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tags
+                        Tag
                     </p>
                     <p class="title has-text-weight-normal">
-                        0
+                        1
                     </p>
                 </div>
             </div>
@@ -364,31 +388,38 @@ var _hmt = _hmt || [];
 </div>
     
         
-    
-        <div class="card widget">
+<div class="card widget" id="toc">
     <div class="card-content">
         <div class="menu">
-        <h3 class="menu-label">
-            Links
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Quick-Start">
+        <span class="has-mr-6">1</span>
+        <span>Quick Start</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Create-a-new-post">
+        <span class="has-mr-6">1.1</span>
+        <span>Create a new post</span>
+        </a></li><li>
+        <a class="is-flex" href="#Run-server">
+        <span class="has-mr-6">1.2</span>
+        <span>Run server</span>
+        </a></li><li>
+        <a class="is-flex" href="#Generate-static-files">
+        <span class="has-mr-6">1.3</span>
+        <span>Generate static files</span>
+        </a></li><li>
+        <a class="is-flex" href="#Deploy-to-remote-sites">
+        <span class="has-mr-6">1.4</span>
+        <span>Deploy to remote sites</span>
+        </a></li></ul></li></ul>
         </div>
     </div>
 </div>
-
+    
+        
     
         
 <div class="card widget">
@@ -398,81 +429,33 @@ var _hmt = _hmt || [];
                 Categories
             </h3>
             <ul class="menu-list">
-            
+            <li>
+        <a class="level is-marginless" href="/categories/test/">
+            <span class="level-start">
+                <span class="level-item">test</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
             </ul>
         </div>
     </div>
 </div>
+    
+        
     
     
         <div class="column-right-shadow  ">
         
             
         
-            <div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Recent
-        </h3>
-        
-        <article class="media">
             
-            <a href="/2019/09/29/hello-world/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
-                </p>
-            </a>
+
+        
             
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-28T16:02:57.782Z">2019-09-29</time></div>
-                    <a href="/2019/09/29/hello-world/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Hello World</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-        
-            <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Archives
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/09/">
-                <span class="level-start">
-                    <span class="level-item">September 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-        
-            <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Tags
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-            </div>
-        </div>
-    </div>
-</div>
+
+
         
         </div>
     
