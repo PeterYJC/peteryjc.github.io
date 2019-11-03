@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="en">
+<html  lang="zh">
 <head>
     <meta charset="utf-8" />
 
@@ -7,14 +7,14 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Category: java基础 - 米兰小铁匠</title>
+<title>分类: java基础 - 米兰小铁匠</title>
 
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="米兰小铁匠">
 <meta property="og:url" content="https://skydai.github.io/categories/java基础/index.html">
 <meta property="og:site_name" content="米兰小铁匠">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://skydai.github.io/images/og_image.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="米兰小铁匠">
@@ -86,7 +86,7 @@ var _hmt = _hmt || [];
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="米兰小铁匠" height="28">
+                CORNDAI
             
             </a>
         </div>
@@ -115,7 +115,7 @@ var _hmt = _hmt || [];
                 
                 
                 
-                <a class="navbar-item search" title="Search" href="javascript:;">
+                <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>
                 
@@ -131,7 +131,7 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a href="/categories">Categories</a></li>
+            <li><a href="/categories">分类</a></li>
             
             <li class="is-active"><a href="#" aria-current="page">java基础</a></li>
         </ul>
@@ -156,7 +156,7 @@ var _hmt = _hmt || [];
                 <span class="level-item has-text-grey">
                     
                     
-                    8 minutes read (About 1236 words)
+                    8 分钟 读完 (大约 1237 个字)
                 </span>
                 
                 
@@ -171,55 +171,17 @@ var _hmt = _hmt || [];
         <div class="content">
             <p>通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。</p>
 <p>声明为<code>static</code>的一个类变量或方法，所有的该类的实例都会共享这个<code>static</code>变量或方法。</p>
-<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><h4 id="static修饰变量"><a href="#static修饰变量" class="headerlink" title="static修饰变量"></a>static修饰变量</h4><p>静态变量在内存中只有一份， jvm只为静态变量分配一次内存，随着类的加载而加载到静态方法区内存中。由于静态变量属于类，和类的实例无关， 所以可以直接通过类名进行访问。</p>
-<p>对于成员变量，每创建一个该类的实例就会创建该成员变量的一个拷贝，分配一次内存，由于成员变量是和类的实例绑定的，所以不能直接通过类名对它进行访问。</p>
-<h4 id="static修饰方法"><a href="#static修饰方法" class="headerlink" title="static修饰方法"></a>static修饰方法</h4><ul>
-<li>只能调用其他的static方法</li>
-<li>只能访问static数据</li>
-<li>不能以任何方式引用<code>this</code> 和<code>super</code></li>
-</ul>
-<p>静态方法可以直接通过类名调用， 任何该类的实例也可以调用它的静态方法， 所以静态方法不能用<code>this</code>或者<code>super</code>。</p>
-<blockquote>
-<p>static 方法独立于任何实例， 所以static方法必须被实现，不能是抽象的absract，在static方法里引用任何的实例变量都是违法的。</p>
-</blockquote>
-<h4 id="static-修饰类"><a href="#static-修饰类" class="headerlink" title="static 修饰类"></a>static 修饰类</h4><p>普通类不允许被声明为静态， 只有内部类才可以。被<code>static</code>修饰的内部类可以作为一个普通类来使用， 而不需实例一个外部类（不需要new，直接静态加载）。</p>
-<p>内部类没有使用<code>static</code>关键字，不能直接创建实例。</p>
-<p><strong>不使用static修饰内部类</strong></p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OuterClass</span> </span>&#123;</span><br><span class="line">	<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InnerClass</span></span>&#123;</span><br><span class="line">		InnerClass()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestStaticClass</span> </span>&#123;</span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-comment">// OutClass需要先生成一个实例</span></span><br><span class="line">		OuterClass oc = <span class="hljs-keyword">new</span> OuterClass();</span><br><span class="line">		oc.new InnerClass();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>使用static修饰内部类</strong></p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OuterClass</span> </span>&#123;</span><br><span class="line">	<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InnerClass</span></span>&#123;</span><br><span class="line">		InnerClass()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestStaticClass</span> </span>&#123;</span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-comment">// OutClass 不需要生成实例</span></span><br><span class="line">		<span class="hljs-keyword">new</span> OuterClass.InnerClass();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="static修饰代码块"><a href="#static修饰代码块" class="headerlink" title="static修饰代码块"></a>static修饰代码块</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">static</span> &#123;</span><br><span class="line">	System.out.println(<span class="hljs-string">"test"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>它独立于类成员，可以有多个， jvm 加载类的时候会执行这些静态代码块， 如果有<code>static</code>代码块多个，jvm会按照他们在类中出现的顺序执行且每个只执行一次。<strong>可以通过静态代码块对static变量进行赋值。</strong></p>
-<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><p>final可以修饰非抽象类， 非抽象类成员方法和变量</p>
-<h4 id="final修饰变量"><a href="#final修饰变量" class="headerlink" title="final修饰变量"></a>final修饰变量</h4><p>一个变量可以声明为<code>final</code>， 目的是阻止它的内容被修改， 这意味着声明<code>final</code>变量的时候， 必须对其进行初始化，这种用法有点类似于c++的<code>const</code>。</p>
-<p>通常，我们会用 <code>final</code>定义一些常量 ， 如</p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">final</span> <span class="hljs-keyword">float</span> PI=<span class="hljs-number">3.14</span></span><br><span class="line"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> SUCCESS = <span class="hljs-keyword">true</span></span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>按照编码约定， final变量的所有字符选择大写，final修饰的变量实际中不占用内存， 它实质上是一个常数。</p>
-</blockquote>
-<h4 id="final修饰方法"><a href="#final修饰方法" class="headerlink" title="final修饰方法"></a>final修饰方法</h4><p>被final修饰的方法可以被子类继承， 但不能被子类的方法覆盖。 如果一个类不想让其子类覆盖它的某个成员方法， 就可以用 <code>final</code>关键字修饰该方法。</p>
-<blockquote>
-<p>final不能修饰构造方法。 由于父类中<code>private</code> 成员方法不能被子类覆盖， 所有由<code>private</code>修饰的方法默认也是<code>final</code>的。</p>
-</blockquote>
-<p>使用final修饰成员方法除了不想让子类覆盖外， 还有一个原因就是高效，Java编译器在遇到<code>final</code>修饰的方法的时候会转入内嵌机制， 提高执行效率。</p>
-<blockquote>
-<p> 内嵌机制 ，类似于c++ inline, 调用方法的时候直接将方法的主题插入到调用处， 而不用去访问类或者对象， 这样会提高50%左右效率。然而，如果方法主体比较庞大， 且多处被调用将导致主体代码膨胀， 同时也产生效率问题， 所以需要慎用。</p>
-</blockquote>
-<h4 id="final修饰类"><a href="#final修饰类" class="headerlink" title="final修饰类"></a>final修饰类</h4><p><code>final</code>修饰的类不能被继承。</p>
-<h3 id="final和static同时使用"><a href="#final和static同时使用" class="headerlink" title="final和static同时使用"></a>final和static同时使用</h3><p>同时使用 <code>final</code>和<code>static</code>修饰类成员， 该类成员拥有二者特性。</p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> LIMIT=<span class="hljs-number">100</span>; <span class="hljs-comment">// LIMIT表示全局常量</span></span><br></pre></td></tr></table></figure>
-
-<p>如果是方法的话，方法可以被继承， 可以通过类名被访问， 但是不能被子类覆盖。</p>
-<blockquote>
-<p>对于一些用<code>final</code>和<code>static</code>修饰的容器类型（比如，<code>ArrayList</code>、<code>HashMap</code>）的实例变量，不可以改变容器变量本身，但可以修改容器中存放的对象。</p>
-</blockquote>
-
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><h4 id="static修饰变量"><a href="#static修饰变量" class="headerlink" title="static修饰变量"></a>static修饰变量</h4>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/11/04/final-static-finalwithstatic/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -273,7 +235,7 @@ var _hmt = _hmt || [];
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Posts
+                        文章
                     </p>
                     <p class="title has-text-weight-normal">
                         2
@@ -283,7 +245,7 @@ var _hmt = _hmt || [];
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categories
+                        分类
                     </p>
                     <p class="title has-text-weight-normal">
                         2
@@ -293,7 +255,7 @@ var _hmt = _hmt || [];
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tags
+                        标签
                     </p>
                     <p class="title has-text-weight-normal">
                         3
@@ -304,7 +266,7 @@ var _hmt = _hmt || [];
         
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/skydai" target="_blank">
-                Follow</a>
+                关注我</a>
         </div>
         
         
@@ -351,7 +313,7 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -386,7 +348,7 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categories
+                分类
             </h3>
             <ul class="menu-list">
             <li>
@@ -414,7 +376,7 @@ var _hmt = _hmt || [];
         <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Tag Cloud
+            标签云
         </h3>
         <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/java关键字/" style="font-size: 10px;">java关键字</a> <a href="/tags/test/" style="font-size: 10px;">test</a>
     </div>
@@ -430,7 +392,7 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Links
+            链接
         </h3>
         <ul class="menu-list">
         
@@ -467,7 +429,7 @@ var _hmt = _hmt || [];
         <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            最新文章
         </h3>
         
         <article class="media">
@@ -516,14 +478,14 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            归档
         </h3>
         <ul class="menu-list">
         
         <li>
             <a class="level is-marginless" href="/archives/2019/11/">
                 <span class="level-start">
-                    <span class="level-item">November 2019</span>
+                    <span class="level-item">十一月 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">1</span>
@@ -534,7 +496,7 @@ var _hmt = _hmt || [];
         <li>
             <a class="level is-marginless" href="/archives/2019/10/">
                 <span class="level-start">
-                    <span class="level-item">October 2019</span>
+                    <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">1</span>
@@ -554,7 +516,7 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Links
+            链接
         </h3>
         <ul class="menu-list">
         
@@ -589,7 +551,7 @@ var _hmt = _hmt || [];
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="米兰小铁匠" height="28">
+                    CORNDAI
                 
                 </a>
                 <p class="is-size-7">
@@ -598,7 +560,7 @@ var _hmt = _hmt || [];
                 
                 <br>
                 <span id="busuanzi_container_site_uv">
-                Visited by <span id="busuanzi_value_site_uv">0</span> users
+                共<span id="busuanzi_value_site_uv">0</span>个访客
                 </span>
                 
                 </p>
@@ -639,7 +601,7 @@ var _hmt = _hmt || [];
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("en");</script>
+<script>moment.locale("zh-CN");</script>
 
 <script>
 var IcarusThemeSettings = {
@@ -711,7 +673,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
     
     
-<a id="back-to-top" title="Back to Top" href="javascript:;">
+<a id="back-to-top" title="回到顶端" href="javascript:;">
     <i class="fas fa-chevron-up"></i>
 </a>
 <script src="/js/back-to-top.js" defer></script>
@@ -735,7 +697,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="searchbox ins-search">
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -747,11 +709,11 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Posts',
-                PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
-                UNTITLED: '(Untitled)',
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
             },
             CONTENT_URL: '/content.json',
         };

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="en">
+<html  lang="zh">
 <head>
     <meta charset="utf-8" />
 
@@ -10,19 +10,19 @@
 <title>Java中static, final, static final的区别 - 米兰小铁匠</title>
 
 
-    <meta name="description" content="通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。 声明为static的一个类变量或方法，所有的该类的实例都会共享这个static变量或方法。 staticstatic修饰变量静态变量在内存中只有一份， jvm只为静态变量分配一次内存，随着类的加载而加载到静态方法区内存中。由于静态变量属于类，和类的实例无关">
+    <meta name="description" content="通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。 声明为static的一个类变量或方法，所有的该类的实例都会共享这个static变量或方法。 staticstatic修饰变量">
 <meta name="keywords" content="java,java关键字">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java中static, final, static final的区别">
 <meta property="og:url" content="https://skydai.github.io/2019/11/04/final-static-finalwithstatic/index.html">
 <meta property="og:site_name" content="米兰小铁匠">
-<meta property="og:description" content="通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。 声明为static的一个类变量或方法，所有的该类的实例都会共享这个static变量或方法。 staticstatic修饰变量静态变量在内存中只有一份， jvm只为静态变量分配一次内存，随着类的加载而加载到静态方法区内存中。由于静态变量属于类，和类的实例无关">
-<meta property="og:locale" content="en">
+<meta property="og:description" content="通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。 声明为static的一个类变量或方法，所有的该类的实例都会共享这个static变量或方法。 staticstatic修饰变量">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://skydai.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2019-11-03T17:24:59.702Z">
+<meta property="og:updated_time" content="2019-11-03T17:40:49.424Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中static, final, static final的区别">
-<meta name="twitter:description" content="通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。 声明为static的一个类变量或方法，所有的该类的实例都会共享这个static变量或方法。 staticstatic修饰变量静态变量在内存中只有一份， jvm只为静态变量分配一次内存，随着类的加载而加载到静态方法区内存中。由于静态变量属于类，和类的实例无关">
+<meta name="twitter:description" content="通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。 声明为static的一个类变量或方法，所有的该类的实例都会共享这个static变量或方法。 staticstatic修饰变量">
 <meta name="twitter:image" content="https://skydai.github.io/images/og_image.png">
 <meta name="twitter:creator" content="@loststarlights">
 <meta name="twitter:site" content="https://twitter.com/loststarlights">
@@ -91,7 +91,7 @@ var _hmt = _hmt || [];
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="Java中static, final, static final的区别" height="28">
+                CORNDAI
             
             </a>
         </div>
@@ -119,12 +119,12 @@ var _hmt = _hmt || [];
             <div class="navbar-end">
                 
                 
-                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
                     <i class="fas fa-list-ul"></i>
                 </a>
                 
                 
-                <a class="navbar-item search" title="Search" href="javascript:;">
+                <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>
                 
@@ -153,13 +153,13 @@ var _hmt = _hmt || [];
                 <span class="level-item has-text-grey">
                     
                     
-                    8 minutes read (About 1236 words)
+                    8 分钟 读完 (大约 1237 个字)
                 </span>
                 
                 
                 <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
                     <i class="far fa-eye"></i>
-                    <span id="busuanzi_value_page_pv">0</span> visits
+                    <span id="busuanzi_value_page_pv">0</span>次访问
                 </span>
                 
             </div>
@@ -173,7 +173,9 @@ var _hmt = _hmt || [];
         <div class="content">
             <p>通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。</p>
 <p>声明为<code>static</code>的一个类变量或方法，所有的该类的实例都会共享这个<code>static</code>变量或方法。</p>
-<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><h4 id="static修饰变量"><a href="#static修饰变量" class="headerlink" title="static修饰变量"></a>static修饰变量</h4><p>静态变量在内存中只有一份， jvm只为静态变量分配一次内存，随着类的加载而加载到静态方法区内存中。由于静态变量属于类，和类的实例无关， 所以可以直接通过类名进行访问。</p>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><h4 id="static修饰变量"><a href="#static修饰变量" class="headerlink" title="static修饰变量"></a>static修饰变量</h4><a id="more"></a>
+
+<p>静态变量在内存中只有一份， jvm只为静态变量分配一次内存，随着类的加载而加载到静态方法区内存中。由于静态变量属于类，和类的实例无关， 所以可以直接通过类名进行访问。</p>
 <p>对于成员变量，每创建一个该类的实例就会创建该成员变量的一个拷贝，分配一次内存，由于成员变量是和类的实例绑定的，所以不能直接通过类名对它进行访问。</p>
 <h4 id="static修饰方法"><a href="#static修饰方法" class="headerlink" title="static修饰方法"></a>static修饰方法</h4><ul>
 <li>只能调用其他的static方法</li>
@@ -245,7 +247,7 @@ var _hmt = _hmt || [];
 
 <div class="card">
     <div class="card-content">
-        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
         <div class="buttons is-centered">
             
                 
@@ -253,8 +255,8 @@ var _hmt = _hmt || [];
     <span class="icon is-small">
         <i class="fab fa-alipay"></i>
     </span>
-    <span>Alipay</span>
-    <div class="qrcode"><img src="/images/alipay.jpg" alt="Alipay"></div>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
 </a>
 
                 
@@ -263,8 +265,8 @@ var _hmt = _hmt || [];
     <span class="icon is-small">
         <i class="fab fa-weixin"></i>
     </span>
-    <span>Wechat</span>
-    <div class="qrcode"><img src="/images/wechatpay.jpg" alt="Wechat"></div>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechatpay.jpg" alt="微信"></div>
 </a>
 
                 
@@ -292,7 +294,7 @@ var _hmt = _hmt || [];
 
 <div class="card">
     <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
         
 <div id="valine-thread" class="content"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
@@ -351,7 +353,7 @@ var _hmt = _hmt || [];
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Posts
+                        文章
                     </p>
                     <p class="title has-text-weight-normal">
                         2
@@ -361,7 +363,7 @@ var _hmt = _hmt || [];
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categories
+                        分类
                     </p>
                     <p class="title has-text-weight-normal">
                         2
@@ -371,7 +373,7 @@ var _hmt = _hmt || [];
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tags
+                        标签
                     </p>
                     <p class="title has-text-weight-normal">
                         3
@@ -382,7 +384,7 @@ var _hmt = _hmt || [];
         
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/skydai" target="_blank">
-                Follow</a>
+                关注我</a>
         </div>
         
         
@@ -428,7 +430,7 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Catalogue
+                目录
             </h3>
             <ul class="menu-list"><li>
         <a class="is-flex" href="#static">
@@ -479,7 +481,7 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
@@ -514,7 +516,7 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categories
+                分类
             </h3>
             <ul class="menu-list">
             <li>
@@ -542,7 +544,7 @@ var _hmt = _hmt || [];
         <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Tag Cloud
+            标签云
         </h3>
         <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/java关键字/" style="font-size: 10px;">java关键字</a> <a href="/tags/test/" style="font-size: 10px;">test</a>
     </div>
@@ -558,7 +560,7 @@ var _hmt = _hmt || [];
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Links
+            链接
         </h3>
         <ul class="menu-list">
         
@@ -594,7 +596,7 @@ var _hmt = _hmt || [];
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="Java中static, final, static final的区别" height="28">
+                    CORNDAI
                 
                 </a>
                 <p class="is-size-7">
@@ -603,7 +605,7 @@ var _hmt = _hmt || [];
                 
                 <br>
                 <span id="busuanzi_container_site_uv">
-                Visited by <span id="busuanzi_value_site_uv">0</span> users
+                共<span id="busuanzi_value_site_uv">0</span>个访客
                 </span>
                 
                 </p>
@@ -644,7 +646,7 @@ var _hmt = _hmt || [];
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("en");</script>
+<script>moment.locale("zh-CN");</script>
 
 <script>
 var IcarusThemeSettings = {
@@ -716,7 +718,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
     
     
-<a id="back-to-top" title="Back to Top" href="javascript:;">
+<a id="back-to-top" title="回到顶端" href="javascript:;">
     <i class="fas fa-chevron-up"></i>
 </a>
 <script src="/js/back-to-top.js" defer></script>
@@ -740,7 +742,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="searchbox ins-search">
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -752,11 +754,11 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Posts',
-                PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
-                UNTITLED: '(Untitled)',
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
             },
             CONTENT_URL: '/content.json',
         };
