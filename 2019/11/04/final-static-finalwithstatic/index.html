@@ -7,25 +7,25 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Java中static, final, static final的区别 - 米兰小铁匠</title>
+<title>Java中static, final, static final的区别 - 世界第一半藏</title>
 
 
     <meta name="description" content="通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。 声明为static的一个类变量或方法，所有的该类的实例都会共享这个static变量或方法。 staticstatic修饰变量">
 <meta name="keywords" content="java,java关键字">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java中static, final, static final的区别">
-<meta property="og:url" content="https://skydai.github.io/2019/11/04/final-static-finalwithstatic/index.html">
-<meta property="og:site_name" content="米兰小铁匠">
+<meta property="og:url" content="https://peteryjc.github.io/2019/11/04/final-static-finalwithstatic/index.html">
+<meta property="og:site_name" content="世界第一半藏">
 <meta property="og:description" content="通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。 声明为static的一个类变量或方法，所有的该类的实例都会共享这个static变量或方法。 staticstatic修饰变量">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://skydai.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2019-11-03T18:10:34.760Z">
+<meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
+<meta property="og:updated_time" content="2019-11-03T18:10:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中static, final, static final的区别">
 <meta name="twitter:description" content="通常情况下， 类成员需要通过它的类的对象访问，如果一个成员被声明为static，它能够在它的类的任何对象创建之前被访问， 而不用引用任何对象。 声明为static的一个类变量或方法，所有的该类的实例都会共享这个static变量或方法。 staticstatic修饰变量">
-<meta name="twitter:image" content="https://skydai.github.io/images/og_image.png">
-<meta name="twitter:creator" content="@loststarlights">
-<meta name="twitter:site" content="https://twitter.com/loststarlights">
+<meta name="twitter:image" content="https://peteryjc.github.io/images/og_image.png">
+<meta name="twitter:creator" content="@peteryangjc">
+<meta name="twitter:site" content="https://twitter.com/peteryangjc">
 
 
 
@@ -91,7 +91,7 @@ var _hmt = _hmt || [];
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                CORNDAI
+                Chia Ch&#39;eng Yang
             
             </a>
         </div>
@@ -279,13 +279,13 @@ var _hmt = _hmt || [];
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/10/07/hello-world/">
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/11/04/hello-world/">
+                <i class="level-item fas fa-chevron-left"></i>
                 <span class="level-item">Hello World</span>
-                <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
+        
         
     </div>
 </div>
@@ -328,22 +328,22 @@ var _hmt = _hmt || [];
                 <div>
                     
                     <figure class="image is-128x128 has-mb-6">
-                        <img class="is-rounded" src="/images/avatar.png" alt="Corn Dai">
+                        <img class="is-rounded" src="/images/avatar.png" alt="Chia Ch&#39;eng Yang">
                     </figure>
                     
                     <p class="is-size-4 is-block">
-                        Corn Dai
+                        Chia Ch&#39;eng Yang
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        k8s, golang, distributed
+                        k8s,docker,python,linux,golang
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Shanghai</span>
+                        <span>Chengdu</span>
                     </p>
                     
                 </div>
@@ -383,7 +383,7 @@ var _hmt = _hmt || [];
         </nav>
         
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/skydai" target="_blank">
+            <a class="level-item button is-link is-rounded" href="https://github.com/peteryjc" target="_blank">
                 关注我</a>
         </div>
         
@@ -392,14 +392,14 @@ var _hmt = _hmt || [];
         <div class="level is-mobile">
             
             <a class="level-item button is-white is-marginless" target="_blank"
-                title="Github" href="https://github.com/skydai">
+                title="Github" href="https://github.com/peteryjc">
                 
                 <i class="fab fa-github"></i>
                 
             </a>
             
             <a class="level-item button is-white is-marginless" target="_blank"
-                title="Twitter" href="https://twitter.com/loststarlights">
+                title="Twitter" href="https://twitter.com/peteryangjc">
                 
                 <i class="fab fa-twitter"></i>
                 
@@ -596,11 +596,11 @@ var _hmt = _hmt || [];
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    CORNDAI
+                    Chia Ch&#39;eng Yang
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2019 Corn Dai&nbsp;
+                &copy; 2019 Chia Ch&#39;eng Yang&nbsp;
                 Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
                 
                 <br>
@@ -631,7 +631,7 @@ var _hmt = _hmt || [];
                 </p>
                 
                 <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/skydai/skydai.github.io">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/PeterYJC/peteryjc.github.io">
                         
                         <i class="fab fa-github"></i>
                         
