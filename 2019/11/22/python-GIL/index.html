@@ -10,19 +10,19 @@
 <title>为什么说Python是伪多线程 - 世界第一半藏</title>
 
 
-    <meta name="description" content="操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 + 1">
+    <meta name="description" content="学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 +">
 <meta name="keywords" content="面经,python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么说Python是伪多线程">
 <meta property="og:url" content="https://peteryjc.github.io/2019/11/22/python-GIL/index.html">
 <meta property="og:site_name" content="世界第一半藏">
-<meta property="og:description" content="操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 + 1">
+<meta property="og:description" content="学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 +">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2019-11-22T09:18:29.777Z">
+<meta property="og:updated_time" content="2019-11-22T12:39:32.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么说Python是伪多线程">
-<meta name="twitter:description" content="操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 + 1">
+<meta name="twitter:description" content="学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 +">
 <meta name="twitter:image" content="https://peteryjc.github.io/images/og_image.png">
 <meta name="twitter:creator" content="@peteryangjc">
 <meta name="twitter:site" content="https://twitter.com/peteryangjc">
@@ -149,7 +149,7 @@ var _hmt = _hmt || [];
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1725 个字)
+                    12 分钟 读完 (大约 1727 个字)
                 </span>
                 
                 
@@ -167,7 +167,7 @@ var _hmt = _hmt || [];
             
         </h1>
         <div class="content">
-            <p>操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。<br>多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 <code>1 + 1 &gt; 2</code> 的反效果。</p>
+            <p>学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。<br>多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 <code>1 + 1 &gt; 2</code> 的反效果。</p>
 <a id="more"></a>
 
 <h3 id="GIL-是什么"><a href="#GIL-是什么" class="headerlink" title="GIL 是什么"></a>GIL 是什么</h3><p>GIL 的全名是 the Global Interpreter Lock （全局解释锁），是常规 python 解释器（当然，有些解释器没有）的核心部件。我们看看官方的解释：</p>
