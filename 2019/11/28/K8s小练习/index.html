@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>K8s小练习 - 世界第一半藏</title>
+
+
+    <meta name="description" content="最近在知乎上发现了一个专栏，云计算技术前线,每天有一道题，对于检测基础来说很不错，由此我把它总结到这里。">
+<meta name="keywords" content="k8s基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K8s小练习">
+<meta property="og:url" content="https://peteryjc.github.io/2019/11/28/K8s小练习/index.html">
+<meta property="og:site_name" content="世界第一半藏">
+<meta property="og:description" content="最近在知乎上发现了一个专栏，云计算技术前线,每天有一道题，对于检测基础来说很不错，由此我把它总结到这里。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
+<meta property="og:updated_time" content="2019-11-28T09:42:05.251Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="K8s小练习">
+<meta name="twitter:description" content="最近在知乎上发现了一个专栏，云计算技术前线,每天有一道题，对于检测基础来说很不错，由此我把它总结到这里。">
+<meta name="twitter:image" content="https://peteryjc.github.io/images/og_image.png">
+<meta name="twitter:creator" content="@peteryangjc">
+<meta name="twitter:site" content="https://twitter.com/peteryangjc">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?adb208251c6f00701456fa34ca6b5854";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                Chia Ch&#39;eng Yang
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-28T08:51:30.000Z">2019-11-28</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 小时 读完 (大约 6931 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                K8s小练习
+            
+        </h1>
+        <div class="content">
+            <p>最近在知乎上发现了一个专栏，<a href="https://zhuanlan.zhihu.com/cloud-front-line" target="_blank" rel="noopener">云计算技术前线</a>,每天有一道题，对于检测基础来说很不错，由此我把它总结到这里。</p>
+<a id="more"></a>
+
+<h2 id="第一题-Daemonset知识知识点初探"><a href="#第一题-Daemonset知识知识点初探" class="headerlink" title="第一题|Daemonset知识知识点初探"></a>第一题|Daemonset知识知识点初探</h2><p><strong>以下 Daemonset yaml 中，哪些是正确的？（多选）</strong></p>
+<blockquote>
+<p>A. apiVersion: apps/v1 kind: DaemonSet metadata: name: fluentd-elasticsearch namespace: default labels: k8s-app: fluentd-logging spec: selector: matchLabels: name: fluentd-elasticsearch template: metadata: labels: name: fluentd-elasticsearch spec: containers: - name: fluentd-elasticsearch image: gcr.io/fluentd-elasticsearch/fluentd:v2.5.1 restartPolicy: Never</p>
+<p>B. apiVersion: apps/v1 kind: DaemonSet metadata: name: fluentd-elasticsearch namespace: default labels: k8s-app: fluentd-logging spec: selector: matchLabels: name: fluentd-elasticsearch template: metadata: labels: name: fluentd-elasticsearch spec: containers: - name: fluentd-elasticsearch image: gcr.io/fluentd-elasticsearch/fluentd:v2.5.1 restartPolicy: Onfailure</p>
+<p>C. apiVersion: apps/v1 kind: DaemonSet metadata: name: fluentd-elasticsearch namespace: default labels: k8s-app: fluentd-logging spec: selector: matchLabels: name: fluentd-elasticsearch template: metadata: labels: name: fluentd-elasticsearch spec: containers: - name: fluentd-elasticsearch image: gcr.io/fluentd-elasticsearch/fluentd:v2.5.1 restartPolicy: Always</p>
+<p>D. apiVersion: apps/v1 kind: DaemonSet metadata: name: fluentd-elasticsearch namespace: default labels: k8s-app: fluentd-logging spec: selector: matchLabels: name: fluentd-elasticsearch template: metadata: labels: name: fluentd-elasticsearch spec: containers: - name: fluentd-elasticsearch image: gcr.io/fluentd-elasticsearch/fluentd:v2.5.1</p>
+</blockquote>
+<p><strong>解析</strong>：<strong>CD</strong></p>
+<p>restartPolicy 字段，可选值为 Always、OnFailure 和 Never。默认为 Always。 一个Pod中可以有多个容器，restartPolicy适用于Pod 中的所有容器。restartPolicy作用是，让kubelet重启失败的容器。</p>
+<p>另外Deployment、Statefulset的restartPolicy也必须为Always，保证pod异常退出，或者健康检查<code>livenessProbe</code>失败后由kubelet重启容器。<a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/zh/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener">https://kubernetes.io/zh/docs/concepts/workloads/controllers/deployment/</a></p>
+<p>Job和CronJob是运行一次的pod，restartPolicy只能为OnFailure或Never，确保容器执行完成后不再重启。<a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/" target="_blank" rel="noopener">https://kubernetes.io/docs/conc</a></p>
+<h2 id="第二题-Daemonset、对接存储CSI知识点"><a href="#第二题-Daemonset、对接存储CSI知识点" class="headerlink" title="第二题| Daemonset、对接存储CSI知识点"></a>第二题| Daemonset、对接存储CSI知识点</h2><p><strong>在Kubernetes PVC+PV体系下通过CSI实现的volume plugins动态创建pv到pv可被pod使用有哪些组件需要参与？</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A. PersistentVolumeController + CSI-Provisoner + CSI controller plugin</span><br><span class="line">B. AttachDetachController + CSI-Attacher + CSI controller plugin</span><br><span class="line">C. Kubelet + CSI node plugin</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析：ABC</strong> </p>
+<p>k8s中，利用PVC 描述Pod 所希望使用的持久化存储的大小，可读写权限等，一般由开发人员去创建；利用PV描述具体存储类型，存储地址，挂载目录等，一般由运维人员去提前创建。而不是直接在pod里写上volume的信息。一来可以使得开发运维职责分明，二来利用PVC、PV机制，可以很好扩展支持市面上不同的存储实现，如k8s v1.10版本对Local Persistent Volume的支持。</p>
+<p>我们试着理一下Pod创建到volume可用的整体流程。</p>
+<p>用户提交请求创建pod，PersistentVolumeController发现这个pod声明使用了PVC，那就会帮它找一个PV配对。</p>
+<p>没有现成的PV，就去找对应的StorageClass，帮它新创建一个PV，然后和PVC完成绑定。</p>
+<p>新创建的PV，还只是一个API 对象，需要经过“两阶段处理”，才能变成宿主机上的“持久化 Volume”真正被使用：</p>
+<p>第一阶段由运行在master上的AttachDetachController负责，为这个PV完成 Attach 操作，为宿主机挂载远程磁盘；</p>
+<p>第二阶段是运行在每个节点上kubelet组件的内部，把第一步attach的远程磁盘 mount 到宿主机目录。这个控制循环叫VolumeManagerReconciler，运行在独立的Goroutine，不会阻塞kubelet主控制循环。</p>
+<p>完成这两步，PV对应的“持久化 Volume”就准备好了，POD可以正常启动，将“持久化 Volume”挂载在容器内指定的路径。</p>
+<p>k8s支持编写自己的存储插件FlexVolume 与 CSI。不管哪种方式，都需要经过“两阶段处理”，FlexVolume相比CSI局限性大，一般我们采用CSI方式对接存储。</p>
+<p>CSI 插件体系的设计思想把这个Provision阶段（动态创建PV），以及 Kubernetes 里的一部分存储管理功能，从主干代码里剥离出来，做成了几个单独的组件。这些组件会通过 Watch API 监听 Kubernetes 里与存储相关的事件变化，比如 PVC 的创建，来执行具体的存储管理动作。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-357db7fc345e794e8700a88ecd24f888_hd.jpg" alt="在这里插入图片描述"></p>
+<p>上图中CSI这套存储插件体系中三个独立的外部组件（External Components），即：Driver Registrar、External Provisioner 和 External Attacher，对应的是从 Kubernetes 项目里面剥离出来的部分存储管理功能。</p>
+<p>我们需要实现Custom Components这一个二进制，会以gRpc方式提供三个服务：CSI Identity、CSI Controller、CSI Node。</p>
+<p>Driver Registrar 组件，负责将插件注册到 kubelet 里面；Driver Registrar调用CSI Identity 服务来获取插件信息；External Provisioner 组件监听APIServer 里的 PVC 对象。当一个 PVC 被创建时，它就会调用 CSI Controller 的 CreateVolume 方法，创建对应 PV；</p>
+<p>External Attacher 组件负责Attach阶段。Mount阶段由kubelet里的VolumeManagerReconciler控制循环直接调用CSI Node服务完成。</p>
+<p>两阶段完成后，kubelet将mount参数传递给docker，创建、启动容器。</p>
+<p>整体流程如下图：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-cfd5be0a3c79c3894ca26865c714c628_hd.jpg" alt="在这里插入图片描述"></p>
+<h2 id="第三题-对接CSI存储知识"><a href="#第三题-对接CSI存储知识" class="headerlink" title="第三题|对接CSI存储知识"></a>第三题|对接CSI存储知识</h2><p><strong>通过单个命令创建一个deployment并暴露Service。deployment和Service名称为cka-1120，使用nginx镜像， deployment拥有2个pod</strong></p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@peter ~]# kubectl run  cka-1120 --replicas 2 --expose=true --port=80 --image=nginx</span><br><span class="line">kubectl run --generator=deployment/apps.v1 is DEPRECATED and will be removed in a future version. Use kubectl run --generator=run-pod/v1 or kubectl create instead.</span><br><span class="line">service/cka-1120 created</span><br><span class="line">deployment.apps/cka-1120 created</span><br><span class="line"></span><br><span class="line">[root@peter ~]# kubectl get all | grep cka-1120</span><br><span class="line">pod/cka-1120-554b9c4798-7jcrb   1/1     Running            0          118m</span><br><span class="line">pod/cka-1120-554b9c4798-fpjwj   1/1     Running            0          118m</span><br><span class="line">service/cka-1120        ClusterIP   10.108.140.25    &lt;none&gt;        80/TCP           118m</span><br><span class="line">deployment.apps/cka-1120   2/2     2            2           118m</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析：</strong></p>
+<p>官网中提供了详细的kubectl使用方法，位于REFERENCE–&gt;&gt;kubectl CLI–&gt;&gt;kubectl Commands标签下。即：<a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/reference/generated/kubectl/kubectl-commands%23runkubectl" target="_blank" rel="noopener">https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#runkubectl</a> run会创建deployment或者job来管理Pod，命令语法如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run NAME --image=image [--env=&quot;key=value&quot;] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [--command] -- [COMMAND] [args...]</span><br></pre></td></tr></table></figure>
+
+<p>NAME指定deployment和service的名称；–replicas缩写-r，指定实例数，默认为1；–expose如果为true，会创建有ClusterIP的service，默认为false；–port表示容器暴露的端口，如果expose为true，该端口也是service的端口；–image指定容器用的镜像；–dry-run为true时，只打印将要发送的对象，而不真正发送它，默认为false。</p>
+<p>创建名为cka-1120-01，带环境变量的deployment</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run cka-1120-01 --image=nginx --env=&quot;DNS_DOMAIN=cluster.local&quot; --env=&quot;POD_NAMESPACE=default&quot;</span><br></pre></td></tr></table></figure>
+
+<p>创建名为cka-1120-02，带label的deployment</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run cka-1120-02 --image=nginx --labels=&quot;app=nginx,env=prod&quot;</span><br></pre></td></tr></table></figure>
+
+<p>还有一个–restart参数，默认为Always，如果设置为OnFailure，则job会被创建；如果设置为Never，则普通Pod会被创建。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@peter ~]# kubectl run cka-1120-03 --image=nginx --restart=OnFailure</span><br><span class="line">kubectl run --generator=job/v1 is DEPRECATED and will be removed in a future version. Use kubectl run --generator=run-pod/v1 or kubectl create instead.</span><br><span class="line">job.batch/cka-1120-03 created</span><br><span class="line">[root@peter ~]# </span><br><span class="line">[root@peter ~]# kubectl run cka-1120-04 --image=nginx --restart=Never</span><br><span class="line">pod/cka-1120-04 created</span><br></pre></td></tr></table></figure>
+
+<p>参数–schedule指定cronjob的定时规则，如果指定该参数，则会创建出cronjob</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@peter ~]# kubectl run pi --schedule=&quot;0/5 * * * ?&quot; --image=perl --restart=OnFailure -- perl -Mbignum=bpi -wle &apos;print bpi(2000)&apos;</span><br><span class="line">cronjob.batch/pi created</span><br></pre></td></tr></table></figure>
+
+<p>目前不支持直接创建Statefulset、Daemonset等资源对象</p>
+<p><strong>kubectl run执行后，到底发生了什么？</strong>有必要看看kubectl源码，入口函数在$GOPATHsrck8s.iokubernetescmdclicheckcheck<em>cli</em>conventions.go中</p>
+<p><img src="https://pic4.zhimg.com/80/v2-f28effd3d527aa7c4cd2312e8f1d8937_hd.jpg" alt="img"></p>
+<p>其中cmd.NewKubectlCommand为构建kubectl以及其子命令行参数。最终的执行业务逻辑的代码都在pkgkubectl包下面。不同的子命令：apply、run、create入口对应的在pkgkubectlcmd下面：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-b063efc422e61a20d50f1c7ae9434d9f_hd.jpg" alt="img"></p>
+<p>最重要的o.Run(f, cmd, args)中会对kubectl run传入的参数进行一系列校验，填充默认值。</p>
+<p>在360行调用o.createGeneratedObject根据不同的generator生成deployment、cronjob、job、pod等资源对象，并向apiserver发送创建请求。</p>
+<p>如果设置了expose为true，在372行，同样的调用o.createGeneratedObject生成并创建service。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-6f728b676d9e1230daf3989b3d0a1081_hd.jpg" alt="img"></p>
+<p>o.createGeneratedObject方法第649行，根据不同的generator实现生成不同的资源对象。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-40f3d795b3d208d89060bb34e97391c8_hd.jpg" alt="img"></p>
+<p>run命令对应的generator实现有以下几种，代码位于pkgkubectlgenerateversionedgenerator.go中的DefaultGenerators函数。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">case &quot;run&quot;:</span><br><span class="line">    generator = map[string]generate.Generator&#123;</span><br><span class="line">        RunV1GeneratorName:                 BasicReplicationController&#123;&#125;,</span><br><span class="line">        RunPodV1GeneratorName:              BasicPod&#123;&#125;,</span><br><span class="line">        DeploymentV1Beta1GeneratorName:     DeploymentV1Beta1&#123;&#125;,</span><br><span class="line">        DeploymentAppsV1Beta1GeneratorName: DeploymentAppsV1Beta1&#123;&#125;,</span><br><span class="line">        DeploymentAppsV1GeneratorName:      DeploymentAppsV1&#123;&#125;,</span><br><span class="line">        JobV1GeneratorName:                 JobV1&#123;&#125;,</span><br><span class="line">        CronJobV2Alpha1GeneratorName:       CronJobV2Alpha1&#123;&#125;,</span><br><span class="line">        CronJobV1Beta1GeneratorName:        CronJobV1Beta1&#123;&#125;,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>o.createGeneratedObject方法第689行对生成的资源对象向APIServer发送http创建请求。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-749da5eae929e739fb55b4da68d62c21_hd.jpg" alt="img"></p>
+<p>具体的kubectl run命令的代码，感兴趣的同学可以进一步深挖，我也会在后续的源码分析系列文章中进行更详细的解析。</p>
+<h2 id="第四题-熟练掌握kubectl命令进行创建资源对象操作"><a href="#第四题-熟练掌握kubectl命令进行创建资源对象操作" class="headerlink" title="第四题|熟练掌握kubectl命令进行创建资源对象操作"></a>第四题|熟练掌握kubectl命令进行创建资源对象操作</h2><p><strong>通过命令行，使用nginx镜像创建一个pod并手动调度到节点名为node1121节点上，Pod的名称为cka-1121，答题最好附上，所用命令、创建Pod所需最精简的yaml；如果评论有限制，请把注意点列出，主要需列出手动调度怎么做？</strong></p>
+<p><strong>注意：手动调度是指不需要经过kube-scheduler去调度。</strong></p>
+<figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span></span><br><span class="line"><span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span></span><br><span class="line"><span class="hljs-attr">metadata:</span></span><br><span class="line"><span class="hljs-attr">  name:</span> <span class="hljs-string">cka-1121</span></span><br><span class="line"><span class="hljs-attr">  labels:</span></span><br><span class="line"><span class="hljs-attr">    app:</span> <span class="hljs-string">cka-1121</span></span><br><span class="line"><span class="hljs-attr">spec:</span></span><br><span class="line"><span class="hljs-attr">  containers:</span></span><br><span class="line"><span class="hljs-attr">  - name:</span> <span class="hljs-string">cka-1121</span></span><br><span class="line"><span class="hljs-attr">    image:</span> <span class="hljs-string">busybox</span></span><br><span class="line"><span class="hljs-attr">    command:</span> <span class="hljs-string">['sh',</span> <span class="hljs-string">'-c'</span><span class="hljs-string">,</span> <span class="hljs-string">'echo Hello CKA! &amp;&amp; sleep 3600'</span><span class="hljs-string">]</span></span><br><span class="line"><span class="hljs-attr">  nodeName:</span> <span class="hljs-string">node1121</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>解析：</strong></p>
+<p><strong>官网中调度器地址：</strong><a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/concepts/scheduling/kube-scheduler/" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/scheduling/kube-scheduler/</a><strong>调度器命令行参数：</strong><a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/" target="_blank" rel="noopener">https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/</a></p>
+<p><strong>调度器kube-scheduler分为预选、优选、pod优先级抢占、bind阶段；</strong></p>
+<p><strong>预选</strong>：从podQueue的待调度队列中弹出需要调度的pod，先进入预选阶段，预选函数来判断每个节点是否适合被该Pod调度。</p>
+<p><strong>优选</strong>：从预选筛选出的满足的节点中选择出最优的节点。</p>
+<p><strong>pod优先级抢占</strong>：如果预选和优选调度失败，则会尝试将优先级低的pod剔除，让优先级高的pod调度成功。</p>
+<p><strong>bind</strong>：上述步骤完成后，调度器会更新本地缓存，但最后需要将绑定结果提交到etcd中，需要调用Apiserver的Bind接口完成。</p>
+<blockquote>
+<p>以下k8s源码版本为1.13.2</p>
+</blockquote>
+<p>我们去查看kube-scheduler源码，调度器通过list-watch机制，监听集群内Pod的新增、更新、删除事件，调用回调函数。指定nodeName后将不会放入到未调度的podQueue队列中，也就不会走上面这几个阶段。具体可以来到pkgschedulerfactoryfactory.go源码中的NewConfigFactory函数中：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-8670db6bcb028ed48cec94c36065f72f_hd.jpg" alt="img"></p>
+<p>其中在构建pod资源对象新增、更新、删除的回调函数时，分已被调度的和未被调度的回调。</p>
+<p><strong>已被调度的回调：</strong>已被调度的pod根据FilterFunc中定义的逻辑过滤，nodeName不为空，返回true时，将会走Handler中定义的AddFunc、UpdateFunc、DeleteFunc，这个其实最终不会加入到podQueue中，但需要加入到本地缓存中，因为调度器会维护一份节点上pod列表的缓存。</p>
+<figure class="highlight go hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// scheduled pod cache 已被调度的</span></span><br><span class="line">    args.PodInformer.Informer().AddEventHandler(</span><br><span class="line">        cache.FilteringResourceEventHandler&#123;</span><br><span class="line">            FilterFunc: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(obj <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">bool</span></span> &#123;</span><br><span class="line">                <span class="hljs-keyword">switch</span> t := obj.(<span class="hljs-keyword">type</span>) &#123;</span><br><span class="line">                <span class="hljs-keyword">case</span> *v1.Pod:</span><br><span class="line">                    <span class="hljs-comment">//nodeName不为空,返回true;且返回true时将被走AddFunc、UpdateFunc、DeleteFunc,这个其实最终不会加入到podQueue中</span></span><br><span class="line">                    <span class="hljs-keyword">return</span> assignedPod(t)</span><br><span class="line">                <span class="hljs-keyword">case</span> cache.DeletedFinalStateUnknown:</span><br><span class="line">                    <span class="hljs-keyword">if</span> pod, ok := t.Obj.(*v1.Pod); ok &#123;</span><br><span class="line">                        <span class="hljs-keyword">return</span> assignedPod(pod)</span><br><span class="line">                    &#125;</span><br><span class="line">                    runtime.HandleError(fmt.Errorf(<span class="hljs-string">"unable to convert object %T to *v1.Pod in %T"</span>, obj, c))</span><br><span class="line">                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></span><br><span class="line">                <span class="hljs-keyword">default</span>:</span><br><span class="line">                    runtime.HandleError(fmt.Errorf(<span class="hljs-string">"unable to handle object in %T: %T"</span>, c, obj))</span><br><span class="line">                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            Handler: cache.ResourceEventHandlerFuncs&#123;</span><br><span class="line">                AddFunc:    c.addPodToCache,</span><br><span class="line">                UpdateFunc: c.updatePodInCache,</span><br><span class="line">                DeleteFunc: c.deletePodFromCache,</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<p><strong>未被调度的回调：</strong>未被调度的pod根据FilterFunc中定义的逻辑过滤，nodeName为空且pod的SchedulerName和该调度器的名称一致时返回true；返回true时，将会走Handler中定义的AddFunc、UpdateFunc、DeleteFunc，这个最终会加入到podQueue中。</p>
+<figure class="highlight go hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// unscheduled pod queue 没有被调度的</span></span><br><span class="line">args.PodInformer.Informer().AddEventHandler(</span><br><span class="line">    cache.FilteringResourceEventHandler&#123;</span><br><span class="line">        FilterFunc: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(obj <span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">bool</span></span> &#123;</span><br><span class="line">            <span class="hljs-keyword">switch</span> t := obj.(<span class="hljs-keyword">type</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">case</span> *v1.Pod:</span><br><span class="line">                <span class="hljs-comment">//nodeName为空且pod的SchedulerName和该调度器的名称一致时返回true;且返回true时将被加入到pod queue</span></span><br><span class="line">                <span class="hljs-keyword">return</span> !assignedPod(t) &amp;&amp; responsibleForPod(t, args.SchedulerName)</span><br><span class="line">            <span class="hljs-keyword">case</span> cache.DeletedFinalStateUnknown:</span><br><span class="line">                <span class="hljs-keyword">if</span> pod, ok := t.Obj.(*v1.Pod); ok &#123;</span><br><span class="line">                    <span class="hljs-keyword">return</span> !assignedPod(pod) &amp;&amp; responsibleForPod(pod, args.SchedulerName)</span><br><span class="line">                &#125;</span><br><span class="line">                runtime.HandleError(fmt.Errorf(<span class="hljs-string">"unable to convert object %T to *v1.Pod in %T"</span>, obj, c))</span><br><span class="line">                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></span><br><span class="line">            <span class="hljs-keyword">default</span>:</span><br><span class="line">                runtime.HandleError(fmt.Errorf(<span class="hljs-string">"unable to handle object in %T: %T"</span>, c, obj))</span><br><span class="line">                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        Handler: cache.ResourceEventHandlerFuncs&#123;</span><br><span class="line">            AddFunc:    c.addPodToSchedulingQueue,</span><br><span class="line">            UpdateFunc: c.updatePodInSchedulingQueue,</span><br><span class="line">            DeleteFunc: c.deletePodFromSchedulingQueue,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><strong>手动调度适用场景：</strong></p>
+<ul>
+<li><p>调度器不工作时，可设置nodeName临时救急 ；</p>
+</li>
+<li><p>可以封装成自己的调度器；</p>
+</li>
+</ul>
+<p><strong>扩展点：</strong></p>
+<ul>
+<li><p>过去几个版本的Daemonset都是由controller直接指定pod的运行节点，不经过调度器。</p>
+</li>
+<li><p>直到1.11版本，DaemonSet的pod由scheduler调度才作为alpha特性引入</p>
+</li>
+</ul>
+<p>static Pod，这种其实也属于节点固定，但这种Pod局限很大，比如：不能挂载configmaps和secrets等，这个由Admission Controllers控制。</p>
+<p>下面简单说一下静态Pod：</p>
+<p><strong>静态Pod官网说明：</strong><a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/tasks/configure-pod-container/static-pod/" target="_blank" rel="noopener">https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/</a></p>
+<p>静态 pod指在特定的节点上直接通过 kubelet守护进程进行管理，APIServer无法管理。它没有跟任何的控制器进行关联，kubelet 守护进程对它进行监控，如果崩溃了，kubelet 守护进程会重启它。Kubelet 通过APIServer为每个静态 pod 创建 镜像 pod，这些镜像 pod 对于 APIServer是可见的（即kubectl可以查询到这些Pod），但是不受APIServer控制。</p>
+<p>具体static pod yaml文件放到哪里，需要在kubelet配置中指定，先找到kubelet配置文件：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status kubelet</span><br></pre></td></tr></table></figure>
+
+<p>找到config.yaml文件，里面指定了staticPodPath，kubeadm安装的集群，master节点上的kube-apiserver、kube-scheduler、kube-controller-manager、etcd就是通过static Pod方式部署的。</p>
+<h2 id="第五题-Deployment"><a href="#第五题-Deployment" class="headerlink" title="第五题|Deployment"></a>第五题|Deployment</h2><p><strong>通过命令行，创建两个deployment。</strong></p>
+<p><strong>需要集群中有2个节点；</strong></p>
+<p><strong>第1个deployment名称为cka-1122-01，使用nginx镜像，有2个pod，并配置该deployment自身的pod之间在节点级别反亲和；</strong></p>
+<p><strong>第2个deployment名称为cka-1122-02，使用nginx镜像，有2个pod，并配置该deployment的pod与第1个deployment的pod在节点级别亲和；</strong></p>
+<p>第一个deployment：cka-1122-01</p>
+<figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span></span><br><span class="line"><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span></span><br><span class="line"><span class="hljs-attr">metadata:</span></span><br><span class="line"><span class="hljs-attr">  labels:</span></span><br><span class="line"><span class="hljs-attr">    app:</span> <span class="hljs-string">cka-1122-01</span></span><br><span class="line"><span class="hljs-attr">  name:</span> <span class="hljs-string">cka-1122-01</span></span><br><span class="line"><span class="hljs-attr">spec:</span></span><br><span class="line"><span class="hljs-attr">  replicas:</span> <span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-attr">  selector:</span></span><br><span class="line"><span class="hljs-attr">    matchLabels:</span></span><br><span class="line"><span class="hljs-attr">      app:</span> <span class="hljs-string">cka-1122-01</span></span><br><span class="line"><span class="hljs-attr">  template:</span></span><br><span class="line"><span class="hljs-attr">    metadata:</span></span><br><span class="line"><span class="hljs-attr">      labels:</span></span><br><span class="line"><span class="hljs-attr">        app:</span> <span class="hljs-string">cka-1122-01</span></span><br><span class="line"><span class="hljs-attr">    spec:</span></span><br><span class="line"><span class="hljs-attr">      containers:</span></span><br><span class="line"><span class="hljs-attr">      - image:</span> <span class="hljs-string">nginx</span></span><br><span class="line"><span class="hljs-attr">        name:</span> <span class="hljs-string">cka-1122-01</span>  </span><br><span class="line"><span class="hljs-attr">      affinity:</span></span><br><span class="line"><span class="hljs-attr">        podAntiAffinity:</span></span><br><span class="line"><span class="hljs-attr">          requiredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line"><span class="hljs-attr">              labelSelector:</span></span><br><span class="line"><span class="hljs-attr">                matchExpressions:</span></span><br><span class="line"><span class="hljs-attr">                - key:</span> <span class="hljs-string">app</span></span><br><span class="line"><span class="hljs-attr">                  operator:</span> <span class="hljs-string">In</span></span><br><span class="line"><span class="hljs-attr">                  values:</span></span><br><span class="line"><span class="hljs-bullet">                  -</span> <span class="hljs-string">cka-1122-01</span></span><br><span class="line"><span class="hljs-attr">              topologyKey:</span> <span class="hljs-string">"kubernetes.io/hostname"</span></span><br></pre></td></tr></table></figure>
+
+<p>第二个deployment：cka-1122-02</p>
+<figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span></span><br><span class="line"><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span></span><br><span class="line"><span class="hljs-attr">metadata:</span></span><br><span class="line"><span class="hljs-attr">  labels:</span></span><br><span class="line"><span class="hljs-attr">    app:</span> <span class="hljs-string">cka-1122-02</span></span><br><span class="line"><span class="hljs-attr">  name:</span> <span class="hljs-string">cka-1122-02</span></span><br><span class="line"><span class="hljs-attr">spec:</span></span><br><span class="line"><span class="hljs-attr">  replicas:</span> <span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-attr">  selector:</span></span><br><span class="line"><span class="hljs-attr">    matchLabels:</span></span><br><span class="line"><span class="hljs-attr">      app:</span> <span class="hljs-string">cka-1122-02</span></span><br><span class="line"><span class="hljs-attr">  template:</span></span><br><span class="line"><span class="hljs-attr">    metadata:</span></span><br><span class="line"><span class="hljs-attr">      labels:</span></span><br><span class="line"><span class="hljs-attr">        app:</span> <span class="hljs-string">cka-1122-02</span></span><br><span class="line"><span class="hljs-attr">    spec:</span></span><br><span class="line"><span class="hljs-attr">      containers:</span></span><br><span class="line"><span class="hljs-attr">      - image:</span> <span class="hljs-string">nginx</span></span><br><span class="line"><span class="hljs-attr">        name:</span> <span class="hljs-string">cka-1122-02</span></span><br><span class="line"><span class="hljs-attr">      affinity:</span></span><br><span class="line"><span class="hljs-attr">        podAffinity:</span></span><br><span class="line"><span class="hljs-attr">          requiredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line"><span class="hljs-attr">          - labelSelector:</span></span><br><span class="line"><span class="hljs-attr">              matchExpressions:</span></span><br><span class="line"><span class="hljs-attr">              - key:</span> <span class="hljs-string">app</span></span><br><span class="line"><span class="hljs-attr">                operator:</span> <span class="hljs-string">In</span></span><br><span class="line"><span class="hljs-attr">                values:</span></span><br><span class="line"><span class="hljs-bullet">                -</span> <span class="hljs-string">cka-1122-01</span></span><br><span class="line"><span class="hljs-attr">            topologyKey:</span> <span class="hljs-string">"kubernetes.io/hostname"</span></span><br></pre></td></tr></table></figure>
+
+<p>最终调度结果：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE</span><br><span class="line">cka-1122-01-5df9bdf8c9-qwd2v    1/1         Running      0       8m     10.192.4.2     node-1</span><br><span class="line">cka-1122-01-5df9bdf8c9-r4rhs    1/1      Running      0       8m     10.192.4.3     node-2  </span><br><span class="line">cka-1122-02-749cd4b846-bjhzq     1/1      Running      0       10m    10.192.4.4    node-1</span><br><span class="line">cka-1122-02-749cd4b846-rkgpo     1/1      Running      0       10m    10.192.4.5    node-2</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析：</strong></p>
+<p>考点：k8s中的高级调度及用法。亲和性和反亲和性调度官方文档：<a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/concepts/configuration/assign-pod-node/" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</a></p>
+<h3 id="将-Pod-调度到特定的-Node-上：nodeSelector"><a href="#将-Pod-调度到特定的-Node-上：nodeSelector" class="headerlink" title="将 Pod 调度到特定的 Node 上：nodeSelector"></a>将 Pod 调度到特定的 Node 上：nodeSelector</h3><p>nodeSelector是节点选择约束的最简单推荐形式。 nodeSelector是PodSpec下的一个字段。它指定键值对的映射。为了使Pod可以在节点上运行，该节点必须具有每个指定的键值对作为label。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-4dbb91f18eba7d7b2a5f61f29aa9ddd8_hd.jpg" alt="img"></p>
+<blockquote>
+<p>语法格式：map[string]string 作用：</p>
+<p>– 匹配node.labels</p>
+<p>– 排除不包含nodeSelector中指定label的所有node</p>
+<p>– 匹配机制 —— 完全匹配</p>
+</blockquote>
+<h3 id="nodeSelector-升级版：nodeAffinity"><a href="#nodeSelector-升级版：nodeAffinity" class="headerlink" title="nodeSelector 升级版：nodeAffinity"></a>nodeSelector 升级版：nodeAffinity</h3><p>节点亲和性在概念上类似于nodeSelector，它可以根据节点上的标签来限制Pod可以被调度在哪些节点上。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-31fe4c7adb3585d67c70d67e1fff1093_hd.jpg" alt="img"></p>
+<p><strong>红色框为硬性过滤：</strong>排除不具备指定label的node；在预选阶段起作用；</p>
+<p><strong>绿色框为软性评分：</strong>不具备指定label的node打低分， 降低node被选中的几率；在优选阶段起作用；</p>
+<h3 id="与nodeSelector关键差异"><a href="#与nodeSelector关键差异" class="headerlink" title="与nodeSelector关键差异"></a>与nodeSelector关键差异</h3><blockquote>
+<p>– 引入运算符：In，NotIn （labelselector语法）</p>
+<p>– 支持枚举label可能的取值，如 zone in [az1, az2, az3…]</p>
+<p>– 支持硬性过滤和软性评分</p>
+<p>– 硬性过滤规则支持指定多条件之间的逻辑或运算</p>
+<p>– 软性评分规则支持 设置条件权重值</p>
+</blockquote>
+<h3 id="让某些-Pod-分布在同一组-Node-上：podAffinity"><a href="#让某些-Pod-分布在同一组-Node-上：podAffinity" class="headerlink" title="让某些 Pod 分布在同一组 Node 上：podAffinity"></a>让某些 Pod 分布在同一组 Node 上：podAffinity</h3><p>Pod亲和性和反亲和性可以基于已经在节点上运行的Pod上的标签而不是基于节点上的标签，来限制Pod调度的节点。</p>
+<p><strong>规则的格式为：</strong></p>
+<p>如果该X已经在运行一个或多个满足规则Y的Pod，则该Pod应该（或者在反亲和性的情况下不应该）在X中运行。</p>
+<p>Y表示为LabelSelector。X是一个拓扑域，例如节点，机架，云提供者区域，云提供者区域等。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-5a8c6b698703f9488470baa477b3ff85_hd.jpg" alt="img"></p>
+<p><strong>红框硬性过滤：</strong> 排除不具备指定pod的node组；在预选阶段起作用；</p>
+<p><strong>绿框软性评分：</strong> 不具备指定pod的node组打低分， 降低该组node被选中的几率；在优选阶段起作用；</p>
+<h3 id="与nodeAffinity的关键差异"><a href="#与nodeAffinity的关键差异" class="headerlink" title="与nodeAffinity的关键差异"></a>与nodeAffinity的关键差异</h3><blockquote>
+<p>– 定义在PodSpec中，亲和与反亲和规则具有对称性</p>
+<p>– labelSelector的匹配对象为Pod</p>
+<p>– 对node分组，依据label-key=topologyKey，每个labelvalue取值为一组</p>
+<p>– 硬性过滤规则，条件间只有逻辑与运算</p>
+</blockquote>
+<h3 id="避免某些-Pod-分布在同一组-Node-上：podAntiAffinity"><a href="#避免某些-Pod-分布在同一组-Node-上：podAntiAffinity" class="headerlink" title="避免某些 Pod 分布在同一组 Node 上：podAntiAffinity"></a>避免某些 Pod 分布在同一组 Node 上：podAntiAffinity</h3><p><img src="https://pic3.zhimg.com/80/v2-7a5eb6b57da3dcc83cca25dd49cfcd1e_hd.jpg" alt="img"></p>
+<h3 id="与podAffinity的差异"><a href="#与podAffinity的差异" class="headerlink" title="与podAffinity的差异"></a>与podAffinity的差异</h3><blockquote>
+<p>– 匹配过程相同</p>
+<p>– 最终处理调度结果时取反</p>
+<p>即</p>
+<p>– podAffinity中可调度节点，在podAntiAffinity中为不可调度</p>
+<p>– podAffinity中高分节点，在podAntiAffinity中为低分</p>
+</blockquote>
+<h2 id="第六题-deployment的升级回滚、滚动更新策略、roll、set-image命令"><a href="#第六题-deployment的升级回滚、滚动更新策略、roll、set-image命令" class="headerlink" title="第六题|deployment的升级回滚、滚动更新策略、roll、set image命令"></a>第六题|deployment的升级回滚、滚动更新策略、roll、set image命令</h2><p><strong>通过命令行，创建1个deployment，副本数为3，镜像为nginx:latest。然后滚动升 级到nginx:1.9.1，再回滚到原来的版本</strong></p>
+<p><strong>要求：Deployment的名称为cka-1125，贴出用到的相关命令。</strong></p>
+<p>先创建deployment，可以用命令创建：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run cka-1125  --image=nginx --replicas=3</span><br></pre></td></tr></table></figure>
+
+<p>也可以用以下yaml：cka-1125.yaml创建</p>
+<figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span></span><br><span class="line"><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span></span><br><span class="line"><span class="hljs-attr">metadata:</span></span><br><span class="line"><span class="hljs-attr">  labels:</span></span><br><span class="line"><span class="hljs-attr">    app:</span> <span class="hljs-string">cka-1125</span></span><br><span class="line"><span class="hljs-attr">  name:</span> <span class="hljs-string">cka-1125</span></span><br><span class="line"><span class="hljs-attr">spec:</span></span><br><span class="line"><span class="hljs-attr">  replicas:</span> <span class="hljs-number">3</span></span><br><span class="line"><span class="hljs-attr">  selector:</span></span><br><span class="line"><span class="hljs-attr">    matchLabels:</span></span><br><span class="line"><span class="hljs-attr">      app:</span> <span class="hljs-string">cka-1125</span></span><br><span class="line"><span class="hljs-attr">  template:</span></span><br><span class="line"><span class="hljs-attr">    metadata:</span></span><br><span class="line"><span class="hljs-attr">      labels:</span></span><br><span class="line"><span class="hljs-attr">        app:</span> <span class="hljs-string">cka-1125</span></span><br><span class="line"><span class="hljs-attr">    spec:</span></span><br><span class="line"><span class="hljs-attr">      containers:</span></span><br><span class="line"><span class="hljs-attr">      - image:</span> <span class="hljs-string">nginx</span></span><br><span class="line"><span class="hljs-attr">        name:</span> <span class="hljs-string">cka-1125</span></span><br></pre></td></tr></table></figure>
+
+<p>创建：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f cka-1125.yaml</span><br></pre></td></tr></table></figure>
+
+<p>升级：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl set image deploy/cka-1125 cka-1125=nginx:1.9.1 --record</span><br><span class="line">deployment.extensions/cka-1125 image updated</span><br></pre></td></tr></table></figure>
+
+<p>回滚：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> 回滚到上一个版本</span></span><br><span class="line">kubectl rollout undo deploy/cka-1125</span><br><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> 回滚到指定版本</span></span><br><span class="line">kubectl rollout undo deploy/cka-1125 --to-revision=2</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析：</strong></p>
+<p><strong>官方中set image命令：</strong><a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/reference/generated/kubectl/kubectl-commands%23set" target="_blank" rel="noopener">https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#set</a></p>
+<h3 id="set-image命令"><a href="#set-image命令" class="headerlink" title="set image命令"></a>set image命令</h3><p>set image命令格式如下：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl set image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N [--record]</span><br></pre></td></tr></table></figure>
+
+<p>–record指定，在annotation中记录当前的kubectl命令。 如果设置为false，则不记录命令。 如果设置为true，则记录命令。 默认为false。</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@peter test]# kubectl set image deploy/cka-1125 cka-1125=nginx:1.9.1 --record</span><br><span class="line">deployment.extensions/cka-1125 image updated</span><br><span class="line">[root@peter test]# </span><br><span class="line">[root@peter test]# kubectl rollout history deploy/cka-1125 </span><br><span class="line">deployment.extensions/cka-1125 </span><br><span class="line">REVISION  CHANGE-CAUSE</span><br><span class="line">3         &lt;none&gt;</span><br><span class="line">4         kubectl set image deploy/cka-1125 cka-1125=nginx:1.9.1 --record=true</span><br></pre></td></tr></table></figure>
+
+<p>像上面这样，CHANGE-CAUSE中会有升级命令。</p>
+<p><code>set image</code>命令可以对：<code>pod (po), replicationcontroller (rc), deployment (deploy), daemonset (ds), replicaset (rs)，statefulset(sts)</code>进行操作。</p>
+<h3 id="roll命令"><a href="#roll命令" class="headerlink" title="roll命令"></a>roll命令</h3><p><strong>roll命令官方文档：</strong><a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/reference/generated/kubectl/kubectl-commands%23rollout" target="_blank" rel="noopener">https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#rollout</a></p>
+<p>可以管理<code>deployments、daemonsets、statefulsets</code>资源的回滚：</p>
+<p>查询升级历史：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@peter test]# kubectl rollout history deploy/cka-1125 </span><br><span class="line">deployment.extensions/cka-1125 </span><br><span class="line">REVISION  CHANGE-CAUSE</span><br><span class="line">1         &lt;none&gt;</span><br><span class="line">2         &lt;none&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查看指定版本的详细信息：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl rollout history deploy/cka-1125 --revision=3 -o=yaml</span><br></pre></td></tr></table></figure>
+
+<p>回滚到上一个版本：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@peter test]# kubectl rollout undo deploy/cka-1125 </span><br><span class="line">deployment.extensions/cka-1125 rolled back</span><br></pre></td></tr></table></figure>
+
+<p>或者回滚到指定版本：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@peter test]# kubectl rollout undo deploy/cka-1125 --to-revision=3</span><br><span class="line">deployment.extensions/cka-1125 rolled back</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他roll子命令"><a href="#其他roll子命令" class="headerlink" title="其他roll子命令"></a>其他roll子命令</h3><p>restart：资源将重新启动；status：展示回滚状态；resume：恢复被暂停的资源。控制器不会控制被暂停的资源。通过恢复资源，可以让控制器再次控制。 resume仅对deployment支持。pause：控制器不会控制被暂停的资源。 使用<code>kubectl rollout resume</code>来恢复暂停的资源。 当前，只有deployment支持被暂停。</p>
+<h3 id="滚动更新策略"><a href="#滚动更新策略" class="headerlink" title="滚动更新策略"></a>滚动更新策略</h3><p><strong>滚动更新官网文档：</strong><a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/workloads/controllers/deployment/</a></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">minReadySeconds: 5</span><br><span class="line">strategy:</span><br><span class="line">  type: RollingUpdate</span><br><span class="line">  rollingUpdate:</span><br><span class="line">    maxSurge: 1</span><br><span class="line">    maxUnavailable: 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>minReadySeconds</strong>Kubernetes在等待设置的时间后才进行升级如果没有设置该值，Kubernetes会假设该容器启动起来后就提供服务了如果没有设置该值，在某些极端情况下可能会造成服务服务正常运行</p>
+<p><strong>maxSurge</strong></p>
+<p>控制滚动更新过程中副本总数超过DESIRED的上限。maxSurge可以是具体的整数，也可以是百分比，向上取整。maxSurge默认值为25%。</p>
+<p>例如DESIRED为10，那么副本总数的最大值为roundUp(10 + 10*25%)=13,所以CURRENT为13。</p>
+<p><strong>maxUnavaible</strong>控制滚动更新过程中，不可用副本占DESIRED的最大比例。maxUnavailable可以是具体的整数，也可以是百分之百，向下取整。默认值为25%。</p>
+<p>例如DESIRED为10，那么可用的副本数至少要为 <code>10-roundDown(10*25%)=8</code>所以AVAILABLE为8。</p>
+<p><strong>maxSurge越大，初始创建的新副本数量就越多；maxUnavailable越大，初始销毁的旧副本数目就越多。</strong></p>
+<h2 id="第8题-initContainer概念、用法、使用场景简介"><a href="#第8题-initContainer概念、用法、使用场景简介" class="headerlink" title="第8题 | initContainer概念、用法、使用场景简介"></a>第8题 | initContainer概念、用法、使用场景简介</h2><p><strong>提供一个pod的yaml，要求添加Init Container，Init Container的作用是创建一个空文件，pod的Containers判断文件是否存在，不存在则退出</strong></p>
+<figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span></span><br><span class="line"><span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span></span><br><span class="line"><span class="hljs-attr">metadata:</span></span><br><span class="line"><span class="hljs-attr">  labels:</span></span><br><span class="line"><span class="hljs-attr">    run:</span> <span class="hljs-string">cka-1126</span></span><br><span class="line"><span class="hljs-attr">  name:</span> <span class="hljs-string">cka-1126</span></span><br><span class="line"><span class="hljs-attr">spec:</span></span><br><span class="line"><span class="hljs-attr">  initContainers:</span></span><br><span class="line"><span class="hljs-attr">  - image:</span> <span class="hljs-string">busybox</span></span><br><span class="line"><span class="hljs-attr">    name:</span> <span class="hljs-string">init-c</span></span><br><span class="line"><span class="hljs-attr">    command:</span> <span class="hljs-string">['sh',</span> <span class="hljs-string">'-c'</span><span class="hljs-string">,</span> <span class="hljs-string">'touch /tmp/cka-1126'</span><span class="hljs-string">]</span></span><br><span class="line"><span class="hljs-attr">    volumeMounts:</span></span><br><span class="line"><span class="hljs-attr">    - name:</span> <span class="hljs-string">workdir</span></span><br><span class="line"><span class="hljs-attr">      mountPath:</span> <span class="hljs-string">"/tmp"</span></span><br><span class="line"><span class="hljs-attr">  containers:</span></span><br><span class="line"><span class="hljs-attr">  - image:</span> <span class="hljs-string">busybox</span></span><br><span class="line"><span class="hljs-attr">    name:</span> <span class="hljs-string">cka-1126</span></span><br><span class="line"><span class="hljs-attr">    command:</span> <span class="hljs-string">['sh',</span> <span class="hljs-string">'-c'</span><span class="hljs-string">,</span> <span class="hljs-string">'ls /tmp/cka-1126 &amp;&amp; sleep 3600 || exit 1'</span><span class="hljs-string">]</span></span><br><span class="line"><span class="hljs-attr">    volumeMounts:</span></span><br><span class="line"><span class="hljs-attr">    - name:</span> <span class="hljs-string">workdir</span></span><br><span class="line"><span class="hljs-attr">      mountPath:</span> <span class="hljs-string">"/tmp"</span></span><br><span class="line"><span class="hljs-attr">  volumes:</span></span><br><span class="line"><span class="hljs-attr">  - name:</span> <span class="hljs-string">workdir</span></span><br><span class="line"><span class="hljs-attr">    emptyDir:</span> <span class="hljs-string">&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>主Container的command就是判断文件是否存在，存在则不退出，不存在则退出；也可以用以下if判断：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command: ['sh', '-c', 'if [ -e /tmp/cka-1126 ];then echo "file exits";else echo "file not exits" &amp;&amp; exit 1;fi']</span><br></pre></td></tr></table></figure>
+
+<p>本题的关键点是init容器与主容器需要共同挂载一个名为workdir的目录，init容器在里面创建一个空文件，主容器去检验文件是否存在，检验主要用的是shell的语法；</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command: [&apos;sh&apos;, &apos;-c&apos;, &apos;ls /tmp/cka-1126 &amp;&amp; sleep 3600 || exit 1&apos;]</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析：</strong></p>
+<p>这句话意思是：如果<code>ls /tmp/cka-1126</code>返回码为0，即文件存在，将sleep 3600秒；否则exit 1退出；</p>
+<p>也可以用<code>shell</code>的<code>if</code>语法判断。</p>
+<p><strong>官方文档地址：</strong><a href="https://link.zhihu.com/?target=https%3A//kubernetes.io/docs/tasks/configure-pod-container/configure-pod-initialization/https%3A//kubernetes.io/docs/concepts/workloads/pods/init-containers/" target="_blank" rel="noopener">https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-initialization/https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</a></p>
+<h3 id="梳理概念"><a href="#梳理概念" class="headerlink" title="梳理概念"></a>梳理概念</h3><p>初始化容器，顾名思义容器启动的时候，会先启动可一个或多个容器，如果有多个，那么这几个Init Container按照定义的顺序依次执行，一个执行成功，才能执行下一个，只有所有的Init Container执行完后，主容器才会启动。由于一个Pod里的存储卷是共享的，所以Init Container里产生的数据可以被主容器使用到。</p>
+<p>Init Container可以在多种K8S资源里被使用到如Deployment、Daemon Set、StatefulSet、Job等，但归根结底都是在Pod启动时，在主容器启动前执行，做初始化工作。</p>
+<p>Init 容器支持应用容器的全部字段和特性，包括资源限制、数据卷和安全设置。然而，Init 容器不支持 Readiness Probe，因为它们必须在 Pod 就绪之前运行完成；在资源限制、调度方面也会略有不同。</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p><strong>等待其它模块Ready</strong>：比如有一个应用里面有两个容器化的服务，一个是Web Server，另一个是数据库。其中Web Server需要访问数据库。但是当我们启动这个应用的时候，并不能保证数据库服务先启动起来，所以可能出现在一段时间内Web Server连接数据库错误。为了解决这个问题，我们可以在运行Web Server服务的Pod里使用一个InitContainer，去检查数据库是否准备好，直到数据库可以连接，Init Container才结束退出，然后Web Server容器被启动，发起正式的数据库连接请求。</p>
+<p><strong>初始化配置</strong>：比如集群里检测所有已经存在的成员节点，为主容器准备好集群的配置信息，这样主容器起来后就能用这个配置信息加入集群；目前在容器化，初始化集群配置文件时经常用到；</p>
+<p><strong>提供一种阻塞容器启动的方式</strong>：必须在initContainer容器启动成功后，才会运行下一个容器，保证了一组条件运行成功的方式；</p>
+<p><strong>其它使用场景</strong>：将pod注册到一个中央数据库、下载应用依赖等。</p>
+<p>Kubernetes 1.5 版本 开始支持在annotations下用<a href="https://link.zhihu.com/?target=http%3A//pod.beta.kubernetes.io/init-containers" target="_blank" rel="noopener">http://pod.beta.kubernetes.io/init-containers</a>申明initContainer，像以下这样。</p>
+<figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span></span><br><span class="line"><span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span></span><br><span class="line"><span class="hljs-attr">metadata:</span></span><br><span class="line"><span class="hljs-attr">  name:</span> <span class="hljs-string">myapp-pod</span></span><br><span class="line"><span class="hljs-attr">  labels:</span></span><br><span class="line"><span class="hljs-attr">    app:</span> <span class="hljs-string">myapp</span></span><br><span class="line"><span class="hljs-attr">  annotations:</span></span><br><span class="line">    <span class="hljs-string">pod.beta.kubernetes.io/init-containers:</span> <span class="hljs-string">'[</span></span><br><span class="line"><span class="hljs-string">        &#123;</span></span><br><span class="line"><span class="hljs-string">            "name": "init-myservice",</span></span><br><span class="line"><span class="hljs-string">            "image": "busybox",</span></span><br><span class="line"><span class="hljs-string">            "command": ["sh", "-c", "until nslookup myservice; do echo waiting for myservice; sleep 2; done;"]</span></span><br><span class="line"><span class="hljs-string">        &#125;,</span></span><br><span class="line"><span class="hljs-string">        &#123;</span></span><br><span class="line"><span class="hljs-string">            "name": "init-mydb",</span></span><br><span class="line"><span class="hljs-string">            "image": "busybox",</span></span><br><span class="line"><span class="hljs-string">            "command": ["sh", "-c", "until nslookup mydb; do echo waiting for mydb; sleep 2; done;"]</span></span><br><span class="line"><span class="hljs-string">        &#125;</span></span><br><span class="line"><span class="hljs-string">    ]'</span></span><br><span class="line"><span class="hljs-attr">spec:</span></span><br><span class="line"><span class="hljs-attr">  containers:</span></span><br><span class="line"><span class="hljs-attr">  - name:</span> <span class="hljs-string">myapp-container</span></span><br><span class="line"><span class="hljs-attr">    image:</span> <span class="hljs-string">busybox</span></span><br><span class="line"><span class="hljs-attr">    command:</span> <span class="hljs-string">['sh',</span> <span class="hljs-string">'-c'</span><span class="hljs-string">,</span> <span class="hljs-string">'echo The app is running! &amp;&amp; sleep 3600'</span><span class="hljs-string">]</span></span><br></pre></td></tr></table></figure>
+
+<p>Kubernetes 1.6 版本的新语法将 Init 容器的声明移到 spec 下，但是老的 annotation 语法仍然可以使用。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/k8s基础/">k8s基础</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b5b901377caa996"></script>
+
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechatpay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/22/python-GIL/">
+                <span class="level-item">为什么说Python是伪多线程</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: '5YP2IqekJJ7rMlMG3l9DSSRw-gzGzoHsz',
+        app_key: 'AxttSsP8e4PtWbSjnUuzeP7k',
+        placeholder: 'Say something...'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="is-rounded" src="/images/avatar.png" alt="Chia Ch&#39;eng Yang">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Chia Ch&#39;eng Yang
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        k8s,docker,python,linux,golang
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Chengdu</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        11
+                    </p>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/peteryjc" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/peteryjc">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Twitter" href="https://twitter.com/peteryangjc">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Wechat" href="/images/wechat.jpg">
+                
+                <i class="fab fa-weixin"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#第一题-Daemonset知识知识点初探">
+        <span class="has-mr-6">1</span>
+        <span>第一题|Daemonset知识知识点初探</span>
+        </a></li><li>
+        <a class="is-flex" href="#第二题-Daemonset、对接存储CSI知识点">
+        <span class="has-mr-6">2</span>
+        <span>第二题| Daemonset、对接存储CSI知识点</span>
+        </a></li><li>
+        <a class="is-flex" href="#第三题-对接CSI存储知识">
+        <span class="has-mr-6">3</span>
+        <span>第三题|对接CSI存储知识</span>
+        </a></li><li>
+        <a class="is-flex" href="#第四题-熟练掌握kubectl命令进行创建资源对象操作">
+        <span class="has-mr-6">4</span>
+        <span>第四题|熟练掌握kubectl命令进行创建资源对象操作</span>
+        </a></li><li>
+        <a class="is-flex" href="#第五题-Deployment">
+        <span class="has-mr-6">5</span>
+        <span>第五题|Deployment</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#将-Pod-调度到特定的-Node-上：nodeSelector">
+        <span class="has-mr-6">5.1</span>
+        <span>将 Pod 调度到特定的 Node 上：nodeSelector</span>
+        </a></li><li>
+        <a class="is-flex" href="#nodeSelector-升级版：nodeAffinity">
+        <span class="has-mr-6">5.2</span>
+        <span>nodeSelector 升级版：nodeAffinity</span>
+        </a></li><li>
+        <a class="is-flex" href="#与nodeSelector关键差异">
+        <span class="has-mr-6">5.3</span>
+        <span>与nodeSelector关键差异</span>
+        </a></li><li>
+        <a class="is-flex" href="#让某些-Pod-分布在同一组-Node-上：podAffinity">
+        <span class="has-mr-6">5.4</span>
+        <span>让某些 Pod 分布在同一组 Node 上：podAffinity</span>
+        </a></li><li>
+        <a class="is-flex" href="#与nodeAffinity的关键差异">
+        <span class="has-mr-6">5.5</span>
+        <span>与nodeAffinity的关键差异</span>
+        </a></li><li>
+        <a class="is-flex" href="#避免某些-Pod-分布在同一组-Node-上：podAntiAffinity">
+        <span class="has-mr-6">5.6</span>
+        <span>避免某些 Pod 分布在同一组 Node 上：podAntiAffinity</span>
+        </a></li><li>
+        <a class="is-flex" href="#与podAffinity的差异">
+        <span class="has-mr-6">5.7</span>
+        <span>与podAffinity的差异</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第六题-deployment的升级回滚、滚动更新策略、roll、set-image命令">
+        <span class="has-mr-6">6</span>
+        <span>第六题|deployment的升级回滚、滚动更新策略、roll、set image命令</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#set-image命令">
+        <span class="has-mr-6">6.1</span>
+        <span>set image命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#roll命令">
+        <span class="has-mr-6">6.2</span>
+        <span>roll命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#其他roll子命令">
+        <span class="has-mr-6">6.3</span>
+        <span>其他roll子命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#滚动更新策略">
+        <span class="has-mr-6">6.4</span>
+        <span>滚动更新策略</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第8题-initContainer概念、用法、使用场景简介">
+        <span class="has-mr-6">7</span>
+        <span>第8题 | initContainer概念、用法、使用场景简介</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#梳理概念">
+        <span class="has-mr-6">7.1</span>
+        <span>梳理概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#应用场景">
+        <span class="has-mr-6">7.2</span>
+        <span>应用场景</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/LXC/">
+                        <span class="tag">LXC</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java关键字/">
+                        <span class="tag">java关键字</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/k8s基础/">
+                        <span class="tag">k8s基础</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/python/">
+                        <span class="tag">python</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/test/">
+                        <span class="tag">test</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/内核态/">
+                        <span class="tag">内核态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/用户态/">
+                        <span class="tag">用户态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/面经/">
+                        <span class="tag">面经</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Docker/">
+            <span class="level-start">
+                <span class="level-item">Docker</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux基础/">
+            <span class="level-start">
+                <span class="level-item">Linux基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Python原理/">
+            <span class="level-start">
+                <span class="level-item">Python原理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java基础/">
+            <span class="level-start">
+                <span class="level-item">java基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/k8s/">
+            <span class="level-start">
+                <span class="level-item">k8s</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/test/">
+            <span class="level-start">
+                <span class="level-item">test</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/LXC/" style="font-size: 10px;">LXC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/java关键字/" style="font-size: 10px;">java关键字</a> <a href="/tags/k8s基础/" style="font-size: 10px;">k8s基础</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/内核态/" style="font-size: 10px;">内核态</a> <a href="/tags/用户态/" style="font-size: 10px;">用户态</a> <a href="/tags/面经/" style="font-size: 10px;">面经</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow  ">
+        
+            
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://loveyuki.peteryjc.xin" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">LoveYuki</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">loveyuki.peteryjc.xin</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://skydai.github.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">陈情</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">skydai.github.io</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    Chia Ch&#39;eng Yang
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Chia Ch&#39;eng Yang&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                共<span id="busuanzi_value_site_uv">0</span>个访客
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/PeterYJC/peteryjc.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
