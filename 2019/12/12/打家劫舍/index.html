@@ -7,17 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>分类: Python原理 - 世界第一半藏</title>
+<title>打家劫舍 - 世界第一半藏</title>
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="世界第一半藏">
-<meta property="og:url" content="https://peteryjc.github.io/categories/Python原理/index.html">
+    <meta name="description" content="总结一下LeetCode 打家劫舍的专题。嘻嘻">
+<meta name="keywords" content="leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="打家劫舍">
+<meta property="og:url" content="https://peteryjc.github.io/2019/12/12/打家劫舍/index.html">
 <meta property="og:site_name" content="世界第一半藏">
+<meta property="og:description" content="总结一下LeetCode 打家劫舍的专题。嘻嘻">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
+<meta property="og:updated_time" content="2019-12-12T16:55:51.315Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="世界第一半藏">
+<meta name="twitter:title" content="打家劫舍">
+<meta name="twitter:description" content="总结一下LeetCode 打家劫舍的专题。嘻嘻">
 <meta name="twitter:image" content="https://peteryjc.github.io/images/og_image.png">
 <meta name="twitter:creator" content="@peteryangjc">
 <meta name="twitter:site" content="https://twitter.com/peteryangjc">
@@ -80,7 +85,7 @@ var _hmt = _hmt || [];
 
 <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="is-3-column">
+<body class="is-2-column">
     <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
@@ -114,6 +119,10 @@ var _hmt = _hmt || [];
             <div class="navbar-end">
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -127,78 +136,187 @@ var _hmt = _hmt || [];
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/categories">分类</a></li>
-            
-            <li class="is-active"><a href="#" aria-current="page">Python原理</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
 <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-22T08:56:49.000Z">2019-11-22</time>
+                <time class="level-item has-text-grey" datetime="2019-12-12T15:59:55.000Z">2019-12-12</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Python原理/">Python原理</a>
+                <a class="has-link-grey -link" href="/categories/算法/">算法</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1727 个字)
+                    8 分钟 读完 (大约 1201 个字)
                 </span>
                 
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/11/22/python-GIL/">为什么说Python是伪多线程</a>
+                打家劫舍
             
         </h1>
         <div class="content">
-            <p>学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。<br>多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 <code>1 + 1 &gt; 2</code> 的反效果。</p>
+            <p>总结一下LeetCode 打家劫舍的专题。嘻嘻</p>
+<a id="more"></a>
+
+<h2 id="打家劫舍"><a href="#打家劫舍" class="headerlink" title="打家劫舍"></a><a href="https://leetcode-cn.com/problems/house-robber/" target="_blank" rel="noopener">打家劫舍</a></h2><p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
+<p>给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。</p>
+<p><strong>示例 1:</strong></p>
+<p>输入: [1,2,3,1]<br>输出: 4<br>解释: 偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。<br>     偷窃到的最高金额 = 1 + 3 = 4 。</p>
+<p><strong>示例 2:</strong></p>
+<p>输入: [2,7,9,3,1]<br>输出: 12<br>解释: 偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。<br>     偷窃到的最高金额 = 2 + 9 + 1 = 12 。</p>
+<p><strong>思路：</strong>动态规划，要不这家或者前一家+后一家 <code>max(nums[i]+dp[i-2],dp[i-1]</code></p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rob</span><span class="hljs-params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="hljs-keyword">if</span>(len(nums)==<span class="hljs-number">0</span>):   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> </span><br><span class="line">        <span class="hljs-keyword">if</span>(len(nums)==<span class="hljs-number">1</span>):   <span class="hljs-keyword">return</span> nums[<span class="hljs-number">0</span>]</span><br><span class="line">        dp = []</span><br><span class="line">        dp.append(nums[<span class="hljs-number">0</span>])</span><br><span class="line">        dp.append(max(nums[<span class="hljs-number">0</span>],nums[<span class="hljs-number">1</span>]))</span><br><span class="line">        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>,len(nums)):</span><br><span class="line">            dp.append(max(nums[i]+dp[i<span class="hljs-number">-2</span>],dp[i<span class="hljs-number">-1</span>]))</span><br><span class="line">        <span class="hljs-keyword">return</span> dp[len(nums)<span class="hljs-number">-1</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="打家劫舍-II"><a href="#打家劫舍-II" class="headerlink" title="打家劫舍 II"></a><a href="https://leetcode-cn.com/problems/house-robber-ii/" target="_blank" rel="noopener">打家劫舍 II</a></h2><p>你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都围成一圈，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
+<p>给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。</p>
+<p><strong>示例 1:</strong></p>
+<p>输入: [2,3,2]<br>输出: 3<br>解释: 你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。<br><strong>示例 2:</strong></p>
+<p>输入: [1,2,3,1]<br>输出: 4<br>解释: 你可以先偷窃 1 号房屋（金额 = 1），然后偷窃 3 号房屋（金额 = 3）。<br>     偷窃到的最高金额 = 1 + 3 = 4 。</p>
+<p><strong>思路：</strong>和第一道题一样，不过分两种情况讨论，去掉第一家或者去掉最后一家，最后取大。</p>
+<ul>
+<li><p>在不偷窃第一个房子的情况下（即 nums[1:]nums[1:]），最大金额是 p1</p>
+</li>
+<li><p>在不偷窃最后一个房子的情况下（即 nums[:n-1]nums[:n−1]），最大金额是 p2</p>
+</li>
+<li><p>综合偷窃最大金额： 为以上两种情况的较大值，即 max(p1,p2)</p>
+</li>
+</ul>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span></span><br><span class="line">		<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rob</span><span class="hljs-params">(self, nums: [int])</span> -&gt; int:</span></span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">my_rob</span><span class="hljs-params">(nums)</span>:</span></span><br><span class="line">            cur, pre = <span class="hljs-number">0</span>, <span class="hljs-number">0</span></span><br><span class="line">            <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums:</span><br><span class="line">                cur, pre = max(pre + num, cur), cur</span><br><span class="line">            <span class="hljs-keyword">return</span> cur</span><br><span class="line">        <span class="hljs-keyword">return</span> max(my_rob(nums[:<span class="hljs-number">-1</span>]),my_rob(nums[<span class="hljs-number">1</span>:])) <span class="hljs-keyword">if</span> len(nums) != <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> nums[<span class="hljs-number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>##<a href="https://leetcode-cn.com/problems/house-robber-iii/" target="_blank" rel="noopener">打家劫舍 III</a></p>
+<p>在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。</p>
+<p>计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。</p>
+<p>示例 1:</p>
+<p>输入: [3,2,3,null,3,null,1]</p>
+<pre><code> 3
+/ \
+2   3
+ \   \ 
+  3   1</code></pre><p>输出: 7<br>解释: 小偷一晚能够盗取的最高金额 = 3 + 3 + 1 = 7.<br>示例 2:</p>
+<p>输入: [3,4,5,1,3,null,1]</p>
+<pre><code>  3
+ / \
+ 4   5
+/ \   \ 
+1  3   1  </code></pre><p>   4   5<br>  / \   \<br> 1   3   1</p>
+<p>输出: 9<br>解释: 小偷一晚能够盗取的最高金额 = 4 + 5 = 9</p>
+<p><strong>思路：</strong> 我们可以先不管这个否是二叉树,我们发现,如果我们选了 cur 这个节点 那么就说明 我们不能选它的所有子节点(还有父节点)。<br>对于每一个节点，都只有选和不选两种情况。我们每次考虑一棵子树，那么根只有两种情况，选和不选(我们让dp[0]表示不选,dp[1]表示选)。<br>对于选择了根,那么我们就不能选它的儿子了<br>如果没有选根，我们就可以任意选了(即选最大的那一个)</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="hljs-comment"># class TreeNode:</span></span><br><span class="line"><span class="hljs-comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="hljs-comment">#         self.val = x</span></span><br><span class="line"><span class="hljs-comment">#         self.left = None</span></span><br><span class="line"><span class="hljs-comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dp</span><span class="hljs-params">(self , cur : TreeNode)</span> -&gt; List[int] :</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> cur :</span><br><span class="line">            <span class="hljs-keyword">return</span> [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]</span><br><span class="line">        </span><br><span class="line">        l = self.dp(cur.left)</span><br><span class="line">        r = self.dp(cur.right)</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">return</span> [max(l)+max(r),cur.val+l[<span class="hljs-number">0</span>]+r[<span class="hljs-number">0</span>]]</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rob</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; int:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> max(self.dp(root))</span><br></pre></td></tr></table></figure>
+
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/11/22/python-GIL/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/leetcode/">leetcode</a>
                 </div>
             </div>
         </div>
         
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b5b901377caa996"></script>
+
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechatpay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/28/K8s小练习/">
+                <span class="level-item">K8s小练习</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: '5YP2IqekJJ7rMlMG3l9DSSRw-gzGzoHsz',
+        app_key: 'AxttSsP8e4PtWbSjnUuzeP7k',
+        placeholder: 'Say something...'
+    });
+</script>
+
+    </div>
+</div>
 </div>
                 
 
 
 
 
-<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left ">
     
         
 <div class="card widget">
@@ -306,6 +424,24 @@ var _hmt = _hmt || [];
 
     
         
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#打家劫舍">
+        <span class="has-mr-6">1</span>
+        <span>打家劫舍</span>
+        </a></li><li>
+        <a class="is-flex" href="#打家劫舍-II">
+        <span class="has-mr-6">2</span>
+        <span>打家劫舍 II</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
     
         <div class="card widget">
     <div class="card-content">
@@ -485,7 +621,7 @@ var _hmt = _hmt || [];
 
     
     
-        <div class="column-right-shadow is-hidden-widescreen ">
+        <div class="column-right-shadow  ">
         
             
 
@@ -527,197 +663,6 @@ var _hmt = _hmt || [];
 
         
         </div>
-    
-</div>
-
-                
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        <div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            最新文章
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2019/12/12/打家劫舍/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="打家劫舍">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-12T15:59:55.000Z">2019-12-12</time></div>
-                    <a href="/2019/12/12/打家劫舍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">打家劫舍</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/算法/">算法</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/28/K8s小练习/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="K8s小练习">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-28T08:51:30.000Z">2019-11-28</time></div>
-                    <a href="/2019/11/28/K8s小练习/" class="title has-link-black-ter is-size-6 has-text-weight-normal">K8s小练习</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/22/python-GIL/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="为什么说Python是伪多线程">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-22T08:56:49.000Z">2019-11-22</time></div>
-                    <a href="/2019/11/22/python-GIL/" class="title has-link-black-ter is-size-6 has-text-weight-normal">为什么说Python是伪多线程</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Python原理/">Python原理</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/18/simple-docker/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker与LXC简介">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-18T14:34:18.000Z">2019-11-18</time></div>
-                    <a href="/2019/11/18/simple-docker/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker与LXC简介</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/15/yonghutai-neihetai/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="用户态和内核态的区别">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-15T13:59:39.000Z">2019-11-15</time></div>
-                    <a href="/2019/11/15/yonghutai-neihetai/" class="title has-link-black-ter is-size-6 has-text-weight-normal">用户态和内核态的区别</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Linux基础/">Linux基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            归档
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/12/">
-                <span class="level-start">
-                    <span class="level-item">十二月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/11/">
-                <span class="level-start">
-                    <span class="level-item">十一月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">6</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://loveyuki.peteryjc.xin" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">LoveYuki</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">loveyuki.peteryjc.xin</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://skydai.github.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">陈情</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">skydai.github.io</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
-    
     
 </div>
 
