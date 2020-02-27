@@ -19,7 +19,7 @@
 <meta property="og:description" content="Gerrit采用的分支方法与标准Git不同。在Gerrit中，基本上每个分支都是受保护的分支，但是对分支的需求要低得多，因为Gerrit会根据需要自动创建它们。作为开发人员，我可以在master分支上工作，当我推送到origin时，Gerrit会自动在Origin中创建一个称为refs/for/master的“虚拟”分支，并将更改放入该分支。这类似于在问题中创建MR时GitLab合并请求创建分支的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-27T14:36:33.555Z">
+<meta property="og:updated_time" content="2020-02-27T14:38:45.143Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迁移一个Gitlab项目至Gerrit">
 <meta name="twitter:description" content="Gerrit采用的分支方法与标准Git不同。在Gerrit中，基本上每个分支都是受保护的分支，但是对分支的需求要低得多，因为Gerrit会根据需要自动创建它们。作为开发人员，我可以在master分支上工作，当我推送到origin时，Gerrit会自动在Origin中创建一个称为refs/for/master的“虚拟”分支，并将更改放入该分支。这类似于在问题中创建MR时GitLab合并请求创建分支的">
@@ -153,7 +153,7 @@ var _hmt = _hmt || [];
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 828 个字)
+                    6 分钟 读完 (大约 829 个字)
                 </span>
                 
                 
@@ -177,7 +177,8 @@ var _hmt = _hmt || [];
 <p>目前也没有批量迁移gitlab项目至gerrit的工具，比较保险的方法如下：</p>
 <p>1)使用UI在Gerrit中创建存储库(或要求Gerrit管理员执行此操作)</p>
 <p>2)使用” –bare”选项克隆Gitlab存储库</p>
-<p><code>git clone --bare GITLAB-URL</code></p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --bare GITLAB-URL</span><br></pre></td></tr></table></figure>
+
 <p>3)添加Gerrit remote</p>
 <figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd REPO-NAME</span><br><span class="line">git remote add gerrit GERRIT-URL</span><br></pre></td></tr></table></figure>
 
