@@ -7,22 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Docker与LXC简介 - 世界第一半藏</title>
+<title>Gitlab跨版本升级 - 世界第一半藏</title>
 
 
-    <meta name="description" content="Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源。Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。 Linux Container容器是一种内核虚拟化技术，">
-<meta name="keywords" content="Docker,LXC">
+    <meta name="description" content="最近leader让调研一下gitlab升级方案，测试了两次，都成功了，暂时没有发现网上有比较完整的升级博客或是文档，所以我总结了一下，后续有时间再补充一下升级过程中遇到的问题。">
+<meta name="keywords" content="gitlab update">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker与LXC简介">
-<meta property="og:url" content="https://peteryjc.github.io/2019/11/18/simple-docker/index.html">
+<meta property="og:title" content="Gitlab跨版本升级">
+<meta property="og:url" content="https://peteryjc.github.io/2019/12/18/Gitlab跨版本升级/index.html">
 <meta property="og:site_name" content="世界第一半藏">
-<meta property="og:description" content="Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源。Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。 Linux Container容器是一种内核虚拟化技术，">
+<meta property="og:description" content="最近leader让调研一下gitlab升级方案，测试了两次，都成功了，暂时没有发现网上有比较完整的升级博客或是文档，所以我总结了一下，后续有时间再补充一下升级过程中遇到的问题。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2019-11-18T14:44:24.671Z">
+<meta property="og:updated_time" content="2019-12-18T13:18:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker与LXC简介">
-<meta name="twitter:description" content="Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源。Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。 Linux Container容器是一种内核虚拟化技术，">
+<meta name="twitter:title" content="Gitlab跨版本升级">
+<meta name="twitter:description" content="最近leader让调研一下gitlab升级方案，测试了两次，都成功了，暂时没有发现网上有比较完整的升级博客或是文档，所以我总结了一下，后续有时间再补充一下升级过程中遇到的问题。">
 <meta name="twitter:image" content="https://peteryjc.github.io/images/og_image.png">
 <meta name="twitter:creator" content="@peteryangjc">
 <meta name="twitter:site" content="https://twitter.com/peteryangjc">
@@ -143,17 +143,17 @@ var _hmt = _hmt || [];
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-18T14:34:18.000Z">2019-11-18</time>
+                <time class="level-item has-text-grey" datetime="2019-12-18T13:03:05.000Z">2019-12-18</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                <a class="has-link-grey -link" href="/categories/gitlab/">gitlab</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    11 分钟 读完 (大约 1658 个字)
+                    16 分钟 读完 (大约 2352 个字)
                 </span>
                 
                 
@@ -167,36 +167,202 @@ var _hmt = _hmt || [];
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Docker与LXC简介
+                Gitlab跨版本升级
             
         </h1>
         <div class="content">
-            <p>Docker 是一个开源的应用容器引擎，基于 <a href="https://www.runoob.com/go/go-tutorial.html" target="_blank" rel="noopener">Go 语言</a> 并遵从Apache2.0协议开源。Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。</p>
-<p>Linux Container容器是一种内核虚拟化技术，可以提供轻量级的虚拟化，以便隔离进程和资源。</p>
+            <p>最近leader让调研一下gitlab升级方案，测试了两次，都成功了，暂时没有发现网上有比较完整的升级博客或是文档，所以我总结了一下，后续有时间再补充一下升级过程中遇到的问题。</p>
 <a id="more"></a>
 
-<h3 id="Docker的实现"><a href="#Docker的实现" class="headerlink" title="Docker的实现"></a>Docker的实现</h3><p>Docker 底层的核心技术包括 Linux 上的<strong>命名空间（Namespaces）、控制组（Control groups）、Union 文件系统（Union file systems）和容器格式（Container format）</strong>。</p>
-<p>我们知道，传统的虚拟机通过在宿主主机中运行 hypervisor 来模拟一整套完整的硬件环境提供给虚拟机的操作系统。虚拟机系统看到的环境是可限制的，也是彼此隔离的。 这种直接的做法实现了对资源最完整的封装，但很多时候往往意味着系统资源的浪费。 例如，以宿主机和虚拟机系统都为 Linux 系统为例，虚拟机中运行的应用其实可以利用宿主机系统中的运行环境。</p>
-<p>在操作系统中，包括内核、文件系统、网络、PID、UID、IPC、内存、硬盘、CPU 等等，所有的资源都是应用进程直接共享的。 要想实现虚拟化，除了要实现对内存、CPU、网络IO、硬盘IO、存储空间等的限制外，还要实现文件系统、网络、PID、UID、IPC等等的相互隔离。 前者相对容易实现一些，后者则需要宿主机系统的深入支持。</p>
-<p>随着 Linux 系统对于命名空间功能的完善实现，程序员已经可以实现上面的所有需求，让某些进程在彼此隔离的命名空间中运行。大家虽然都共用一个内核和某些运行时环境（例如一些系统命令和系统库），但是彼此却看不到，都以为系统中只有自己的存在。这种机制就是容器（Container），<strong>利用命名空间来做权限的隔离控制，利用cgroups来做资源分配</strong>。</p>
-<blockquote>
-<p>命名空间是 Linux 内核一个强大的特性。每个容器都有自己单独的命名空间，运行在其中的应用都像是在独立的操作系统中运行一样。命名空间保证了容器之间彼此互不影响。</p>
-</blockquote>
-<h4 id="pid-命名空间"><a href="#pid-命名空间" class="headerlink" title="pid 命名空间"></a>pid 命名空间</h4><p>不同用户的进程就是通过 pid 命名空间隔离开的，且不同命名空间中可以有相同 pid。所有的 LXC 进程在 Docker 中的父进程为Docker进程，每个 LXC 进程具有不同的命名空间。同时由于允许嵌套，因此可以很方便的实现嵌套的 Docker 容器。</p>
-<h4 id="net-命名空间"><a href="#net-命名空间" class="headerlink" title="net 命名空间"></a>net 命名空间</h4><p>有了 pid 命名空间, 每个命名空间中的 pid 能够相互隔离，但是网络端口还是共享 host 的端口。网络隔离是通过 net 命名空间实现的， 每个 net 命名空间有独立的 网络设备, IP 地址, 路由表, /proc/net 目录。这样每个容器的网络就能隔离开来。Docker 默认采用 veth 的方式，将容器中的虚拟网卡同 host 上的一 个Docker 网桥 docker0 连接在一起。</p>
-<h4 id="ipc-命名空间"><a href="#ipc-命名空间" class="headerlink" title="ipc 命名空间"></a>ipc 命名空间</h4><p>容器中进程交互还是采用了 Linux 常见的进程间交互方法(interprocess communication - IPC), 包括信号量、消息队列和共享内存等。然而同 VM 不同的是，容器的进程间交互实际上还是 host 上具有相同 pid 命名空间中的进程间交互，因此需要在 IPC 资源申请时加入命名空间信息，每个 IPC 资源有一个唯一的 32 位 id。</p>
-<h4 id="mnt-命名空间"><a href="#mnt-命名空间" class="headerlink" title="mnt 命名空间"></a>mnt 命名空间</h4><p>类似 chroot，将一个进程放到一个特定的目录执行。mnt 命名空间允许不同命名空间的进程看到的文件结构不同，这样每个命名空间 中的进程所看到的文件目录就被隔离开了。同 chroot 不同，每个命名空间中的容器在 /proc/mounts 的信息只包含所在命名空间的 mount point。</p>
-<h4 id="uts-命名空间"><a href="#uts-命名空间" class="headerlink" title="uts 命名空间"></a>uts 命名空间</h4><p>UTS(“UNIX Time-sharing System”) 命名空间允许每个容器拥有独立的 hostname 和 domain name, 使其在网络上可以被视作一个独立的节点而非 主机上的一个进程。</p>
-<h4 id="user-命名空间"><a href="#user-命名空间" class="headerlink" title="user 命名空间"></a>user 命名空间</h4><p>每个容器可以有不同的用户和组 id, 也就是说可以在容器内用容器内部的用户执行程序而非主机上的用户。</p>
-<p>注：更多关于 Linux 上命名空间的信息，请阅读 <a href="https://blog.scottlowe.org/2013/09/04/introducing-linux-network-namespaces/" target="_blank" rel="noopener">这篇文章</a>。</p>
-<h3 id="Linux-Container简介"><a href="#Linux-Container简介" class="headerlink" title="Linux Container简介"></a>Linux Container简介</h3><p>LXC为Linux Container的简写。可以提供轻量级的虚拟化，以便隔离进程和资源，而且不需要提供指令解释机制以及全虚拟化的其他复杂性。相当于C 中的NameSpace。容器有效地将由单个操作系统管理的资源划分到孤立的组中，以更好地在孤立的组之间平衡有冲突的资源使用需求。与传统虚拟化技术相比，它的优势在于：</p>
-<p>（1）与宿主机使用同一个内核，性能损耗小；</p>
-<p>（2）不需要指令级模拟；</p>
-<p>（3）不需要即时(Just-in-time)编译；</p>
-<p>（4）容器可以在CPU核心的本地运行指令，不需要任何专门的解释机制；</p>
-<p>（5）避免了准虚拟化和系统调用替换中的复杂性；</p>
-<p>（6）轻量级隔离，在隔离的同时还提供共享机制，以实现容器与宿主机的资源共享。</p>
-<p><strong>换句话说，Linux Container是一种轻量级的虚拟化的手段。</strong></p>
+<h3 id="推荐升级路径："><a href="#推荐升级路径：" class="headerlink" title="推荐升级路径："></a>推荐升级路径：</h3><p>Gitlab-ce无法保证各大版本之间无缝升级，所以<strong>推荐升级路径</strong>：</p>
+<p>公司的升级顺序按理应为：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">9.4.3 -&gt; 9.5.10 -&gt;</span><br><span class="line">                   10.8.7 -&gt;</span><br><span class="line">^        ^                  11.11.8 -&gt;</span><br><span class="line">|        |          ^         ^             12.5.5</span><br><span class="line">|        |          |         |                ^</span><br><span class="line">|        |          |         |                |</span><br><span class="line">|        |          |         |                |</span><br><span class="line">|        |          |         |                +</span><br><span class="line">|        |          |         |                Target version</span><br><span class="line">|        |          |         |         </span><br><span class="line">|        |          |         |         </span><br><span class="line">|        |          |         +</span><br><span class="line">|        |          |         Last release in the 11.x major version series</span><br><span class="line">|        |          +</span><br><span class="line">|        |          Last release in the 10.x major version series</span><br><span class="line">|        +</span><br><span class="line">|        Last release in the 9.x major version series</span><br><span class="line">+</span><br><span class="line">Current release to upgrade</span><br></pre></td></tr></table></figure>
+
+<p>可以看到我们已经下载好了到12.5.5的安装包：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1ga15cuaqgjj30ro02nweu.jpg" alt="image-20191218202644981"></p>
+<p> <a href="https://gitlab.com/gitlab-org/gitlab-ce/tree/11-8-stable/doc/update" target="_blank" rel="noopener">帮助升级文档</a></p>
+<p>备份文件：(可选)</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># rsync同步 保证目录权限</span><br><span class="line">rsync -av /var/opt/gitlab/backups /data/git/backups</span><br><span class="line"></span><br><span class="line"># 配置文件中添加如下配置 覆盖默认配置</span><br><span class="line">vim /etc/gitlab/gitlab.rb</span><br><span class="line"># gitlab_rails[&apos;backup_path&apos;] = &quot;/var/opt/gitlab/backups&quot;</span><br><span class="line"> gitlab_rails[&apos;backup_path&apos;] = &quot;/data/git/backups&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Gitlab版本说明"><a href="#Gitlab版本说明" class="headerlink" title="Gitlab版本说明"></a>Gitlab版本说明</h3><p>Gitlab采用 <code>(Major).(Minor).(Patch)</code>的命名方式：</p>
+<p>例如，对于GitLab版本10.5.7：</p>
+<ul>
+<li><code>10</code>代表主要版本。主要版本是10.0.0，但通常称为10.0。</li>
+<li><code>5</code>代表次要版本。次要版本是10.5.0，但通常称为10.5。</li>
+<li><code>7</code> 代表补丁号。</li>
+</ul>
+<h2 id="特定版本的更改"><a href="#特定版本的更改" class="headerlink" title="特定版本的更改"></a>特定版本的更改</h2><p>更新到主要版本可能需要一些手动干预。有关详细信息，请检查要更新的版本：</p>
+<ul>
+<li><p><a href="https://docs.gitlab.com/omnibus/update/gitlab_12_changes.html" target="_blank" rel="noopener">GitLab 12</a></p>
+</li>
+<li><p><a href="https://docs.gitlab.com/omnibus/update/gitlab_11_changes.html" target="_blank" rel="noopener">GitLab 11</a></p>
+<h4 id="GitLab-11具体的变化"><a href="#GitLab-11具体的变化" class="headerlink" title="GitLab 11具体的变化"></a>GitLab 11具体的变化</h4><h5 id="TLS-v1-1弃用"><a href="#TLS-v1-1弃用" class="headerlink" title="TLS v1.1弃用"></a>TLS v1.1弃用</h5><p>从GitLab 12.0开始，默认情况下将禁用TLS v1.1以提高安全性。</p>
+<p>这减轻了许多问题，包括但不限于Heartbleed，并使GitLab开箱即用，符合PCI DSS 3.1标准。 <a href="https://about.gitlab.com/2018/10/15/gitlab-to-deprecate-older-tls/" target="_blank" rel="noopener">详细了解我们的博客中不推荐使用TLS v1.1的原因。</a></p>
+<h5 id="客户支持TLS-v1-2"><a href="#客户支持TLS-v1-2" class="headerlink" title="客户支持TLS v1.2"></a>客户支持TLS v1.2</h5><ul>
+<li><strong>Git-Credential-Manager</strong> - 自<strong>1.14.0</strong>以来的支持</li>
+<li><strong>红帽企业Linux 6上的git</strong> - 自<strong>6.8</strong>以来的支持</li>
+<li><strong>Red Hat Enteprirse Linux 7上的git</strong> - 自<strong>7.2</strong>以来的支持</li>
+<li><strong>JGit / Java</strong> - 自<strong>JDK 7</strong>以来的支持</li>
+<li><strong>Visual Studio</strong> - 自<strong>2017</strong>年版以来的支持</li>
+</ul>
+<p>修改或添加<code>gitlab.rb</code>并<code>gitlab-ctl reconfigure</code>立即运行以禁用TLS v1.1：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx[&apos;ssl_protocols&apos;] = &quot;TLSv1.2&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="升级先决条件"><a href="#升级先决条件" class="headerlink" title="升级先决条件"></a>升级先决条件</h4><p>要成功升级到GitLab 11.0，用户需要满足以下要求：</p>
+<ol>
+<li>用户应该在10.x系列中运行最新版本。即<code>10.8.7</code></li>
+<li>现在已删除10.x系列中已弃用的配置（下面列出）。需要将其删除<code>/etc/gitlab/gitlab.rb</code>。然后运行<code>gitlab-ctl reconfigure</code>以应用配置更改。</li>
+</ol>
+<p>如果不满足上述任一要求，升级过程将中止而不更改用户的现有安装。这是为了确保用户不会因为这些不受支持的配置而导致Gitlab损坏。</p>
+<h5 id="删除配置"><a href="#删除配置" class="headerlink" title="删除配置"></a>删除配置</h5><p>以下配置在10.x系列中已弃用，现已删除：</p>
+<ol>
+<li>与Mattermost相关的配置 - 除了GitLab-Mattermost集成所需的基本配置外，已删除对大多数Mattermost相关配置的支持。<a href="https://docs.gitlab.com/omnibus/gitlab-mattermost/#upgrading-gitlab-mattermost-from-versions-prior-to-11-0" target="_blank" rel="noopener">查看官方文档了解详细信息</a></li>
+<li>旧版<code>git_data_dir</code>配置，用于设置数据存储位置。它现在已经被<code>git_data_dirs</code> 配置所取代。<a href="https://docs.gitlab.com/omnibus/settings/configuration.html#storing-git-data-in-an-alternative-directory" target="_blank" rel="noopener">查看官方文档了解详细信息</a></li>
+<li>旧格式的<code>git_data_dirs</code>配置已被替换为新格式，允许更精细的颗粒控制。<a href="https://docs.gitlab.com/omnibus/settings/configuration.html#storing-git-data-in-an-alternative-directory" target="_blank" rel="noopener">查看官方文档了解详细信息</a></li>
+</ol>
+<h2 id="次要版本中引入的更改"><a href="#次要版本中引入的更改" class="headerlink" title="次要版本中引入的更改"></a>次要版本中引入的更改</h2><h3 id="11-2"><a href="#11-2" class="headerlink" title="11.2"></a>11.2</h3><p>默认情况下禁用机架攻击。要继续使用Rack Attack，您必须<a href="https://docs.gitlab.com/ee/security/rack_attack.html#settings" target="_blank" rel="noopener">手动启用它</a>。</p>
+<h3 id="11-4"><a href="#11-4" class="headerlink" title="11.4"></a>11.4</h3><ol>
+<li><p>捆绑Redis的版本已升级到3.2.12。这是一个修复多个漏洞的关键安全更新。升级到11.4后，运行<code>gitlab-ctl restart redis</code>以确保加载新版本。</p>
+</li>
+<li><p><a href="https://docs.gitlab.com/ee/administration/monitoring/prometheus/index.html" target="_blank" rel="noopener">Prometheus</a>的<a href="https://docs.gitlab.com/ee/administration/monitoring/prometheus/index.html" target="_blank" rel="noopener">捆绑版本</a> 已升级到2.4.2，默认情况下新安装将使用它。Prometheus版本2使用与版本1不兼容的数据格式。</p>
+<p>对于希望保留Prometheus版本1数据的用户，提供了一个命令行工具来升级其Prometheus服务并将数据迁移到新Prometheus版本支持的格式。可以使用以下命令调用此工具：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gitlab-ctl prometheus-upgrade</span><br></pre></td></tr></table></figure>
+
+<p>此工具将现有数据转换为最新Prometheus版本支持的格式。根据数据量，此过程可能需要数小时。如果用户不想迁移数据，但是从干净的数据库开始，则可以将<code>--skip-data-migration</code>flag 传递给上面的命令。</p>
+<p><strong>注意</strong>：Prometheus服务将在迁移过程中停止。</p>
+<p>要了解其他支持的选项，<code>--help</code>请将flag 传递给上面的命令。</p>
+<p>程序包升级期间<strong>不会</strong>自动调用此工具。用户必须手动运行才能迁移到最新版本的Prometheus，并建议尽快进行。因此，升级到11.4的现有用户将继续使用Prometheus 1.x，直到他们手动迁移到2.x版本。</p>
+<p>对早期版本的GitLab附带的Prometheus 1.x版本的支持已被弃用，将在GitLab 12.0中完全删除。仍在使用这些版本的用户将在重新配置期间显示弃用警告。使用GitLab 12.0 Prometheus将自动升级到2.x，Prometheus 1.0数据将无法迁移。</p>
+</li>
+</ol>
+<h3 id="11-6"><a href="#11-6" class="headerlink" title="11.6"></a>11.6</h3><ol>
+<li><p>如果在<a href="https://docs.gitlab.com/ee/administration/high_availability/redis.html" target="_blank" rel="noopener">Redis HA模式下</a>配置GitLab，默认情况下将禁用<a href="https://docs.gitlab.com/ee/administration/monitoring/prometheus/gitlab_monitor_exporter.html" target="_blank" rel="noopener">gitlab-monitor的Sidekiq探针</a>。要手动启用它，用户可以<code>gitlab_monitor[&#39;probe_sidekiq&#39;] = true</code>在<code>/etc/gitlab/gitlab.rb</code>文件中进行设置。但是，在Redis HA模式下手动启用时，用户应使用<code>gitlab_rails[&#39;redis_*&#39;]</code>设置将探针指向连接到实例的Redis实例。</p>
+<p>有效的示例配置是：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gitlab_monitor[&apos;probe_sidekiq&apos;] = true</span><br><span class="line">gitlab_rails[&apos;redis_host&apos;] = &lt;IP of Redis master node&gt;</span><br><span class="line">gitlab_rails[&apos;redis_port&apos;] = &lt;Port where Redis runs in master node&gt;</span><br><span class="line">gitlab_rails[&apos;redis_password&apos;] = &lt;Password to connect to Redis master&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：在上面的配置中，当主节点发生故障后发生故障转移时，gitlab-monitor仍将探测原始主节点，因为它是在中指定的<code>gitlab.rb</code>。用户必须手动更新gitlab.rb以将其指向新的主节点。</p>
+</li>
+<li><p>Ruby已更新至2.5.3。GitLab将在升级期间关闭，直到重新启动独角兽进程。重启在结束时自动完成<code>gitlab-ctl reconfigure</code>，默认情况下在升级时运行。</p>
+</li>
+</ol>
+</li>
+<li><p><a href="https://docs.gitlab.com/omnibus/update/gitlab_10_changes.html" target="_blank" rel="noopener">GitLab 10</a></p>
+</li>
+<li><p><a href="https://docs.gitlab.com/omnibus/update/gitlab_8_changes.html" target="_blank" rel="noopener">GitLab 8</a></p>
+</li>
+<li><p><a href="https://docs.gitlab.com/omnibus/update/gitlab_7_changes.html" target="_blank" rel="noopener">GitLab 7</a></p>
+</li>
+<li><p><a href="https://docs.gitlab.com/omnibus/update/gitlab_6_changes.html" target="_blank" rel="noopener">GitLab 6</a></p>
+</li>
+</ul>
+<h2 id="升级文档"><a href="#升级文档" class="headerlink" title="升级文档"></a>升级文档</h2><ul>
+<li><p>操作系统</p>
+<ul>
+<li>Ubuntu 16.04.1 LTS</li>
+</ul>
+</li>
+<li><p>系统配置</p>
+<ul>
+<li>CPU：8核</li>
+<li>内存：8G</li>
+<li>磁盘：2T（/var/opt/gitlab）</li>
+</ul>
+</li>
+<li><p>当前版本</p>
+<ul>
+<li>GitLab：9.4.3</li>
+<li>GitLab Shell：5.3.1</li>
+<li>GitLab Workhorse：v2.3.0</li>
+<li>GitLab API：v4</li>
+<li>Git：2.13.0</li>
+<li>Ruby：2.3.3p222</li>
+<li>Rails：4.2.8</li>
+<li>postgresql：9.6.3</li>
+</ul>
+</li>
+<li><p>目标版本</p>
+<ul>
+<li><p>GitLab：12.5.5</p>
+</li>
+<li><p>GitLab Shell：10.2.0</p>
+</li>
+<li><p>GitLab Workhorse：v8.14.1</p>
+</li>
+<li><p>GitLab API：v4</p>
+</li>
+<li><p>Git：2.7.4</p>
+</li>
+<li><p>Ruby：2.6.3p62</p>
+</li>
+<li><p>Rails：5.2.3</p>
+</li>
+<li><p>postgresql：10.9</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="升级步骤"><a href="#升级步骤" class="headerlink" title="升级步骤"></a>升级步骤</h3><h4 id="获取安装包"><a href="#获取安装包" class="headerlink" title="获取安装包"></a>获取安装包</h4><p>  <a href="https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_9.5.10-ce.0_amd64.deb" target="_blank" rel="noopener">gitlab-ce_9.5.10-ce.0_amd64.deb</a></p>
+<p>  <a href="https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_10.8.7-ce.0_amd64.deb" target="_blank" rel="noopener">gitlab-ce_10.8.7-ce.0_amd64.deb</a></p>
+<p>  <a href="https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_11.11.8-ce.0_amd64.deb" target="_blank" rel="noopener">gitlab-ce_11.11.8-ce.0_amd64.deb</a></p>
+<p>  <a href="https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_12.5.5-ce.0_amd64.deb" target="_blank" rel="noopener">gitlab-ce_12.5.5-ce.0_amd64.deb</a></p>
+<ol>
+<li><p>说明：由于直接从9.xx升级到12.xx，中间数据库结构变化很大，<code>9.4.3</code>- &gt;<code>9.5.10</code>- &gt;<code>10.8.7</code>- &gt;<code>11.11.8</code>-&gt;<code>12.5.5</code> </p>
+</li>
+<li><p>目前版本：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1ga10dnpywzj30tc0n9tbn.jpg" alt="image-20191218173426645"></p>
+</li>
+<li><p>停止对外提供服务，避免数据不一致。(<strong>每次升级都必须</strong>)</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl stop unicorn</span><br><span class="line">gitlab-ctl stop sidekiq</span><br><span class="line">gitlab-ctl stop nginx</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>进行gitlab全备份或rsync（见上）</p>
+<p><code>su do gitlab-rake gitlab:backup:create</code></p>
+</li>
+<li><p>升级到9.5.10版本</p>
+<p><code>sudo dpkg -i gitlab-ce_9.5.10-ce.0_amd64.deb</code></p>
+<p>重启一下：<code>sudo gitlab-ctl restart</code></p>
+</li>
+<li><p>登录gitlab页面检查（该版本已经支持healthcheck接口，通过healthcheck接口检查服务是否正常）</p>
+<p>![image-20191218174321793](/Users/yangjiacheng/Library/Application Support/typora-user-images/image-20191218174321793.png)</p>
+</li>
+<li><p>升级到10.8.7版本</p>
+<p><code>sudo dpkg -i gitlab-ce_10.8.7-ce.0_amd64.deb</code></p>
+<p>重启一下：<code>sudo gitlab-ctl restart</code></p>
+</li>
+<li><p>登录gitlab页面检查（通过healthcheck接口检查服务是否正常）</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1ga118xrclej30t70txwhe.jpg" alt="image-20191218180434795"></p>
+</li>
+<li><p>升级到11.11.8版本</p>
+<p><code>sudo dpkg -i gitlab-ce_10.8.7-ce.0_amd64.deb</code></p>
+<p>重启一下：<code>sudo gitlab-ctl restart</code></p>
+</li>
+<li><p>登录gitlab页面检查（通过healthcheck接口检查服务是否正常）</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1ga14q9sfjnj30t80p6gog.jpg" alt="image-20191218200503041"></p>
+</li>
+<li><p>升级到12.5.5版本</p>
+<p><code>sudo dpkg -i gitlab-ce_12.5.5-ce.0_amd64.deb</code></p>
+<p>重启一下：<code>sudo gitlab-ctl restart</code></p>
+</li>
+<li><p>登录gitlab页面检查（通过healthcheck接口检查服务是否正常）</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1ga1672fmvdj30t90p0n04.jpg" alt="image-20191218205548507"></p>
+</li>
+<li><p>至此gitlab升级完毕</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1ga166kui64j30kz0kuacu.jpg" alt="image-20191218205519964"></p>
+</li>
+<li><p>以上过程已经在测试环境完成测试</p>
+</li>
+</ol>
+<h3 id="回滚方案："><a href="#回滚方案：" class="headerlink" title="回滚方案："></a>回滚方案：</h3><ol>
+<li><p>将备份的文件在备份机器上进行恢复</p>
+<p><code>gitlab-rake gitlab:backup:restore force=yes BACKUP=版本号</code></p>
+</li>
+<li><p>一旦升级失败，可以将域名指向备份机器</p>
+</li>
+</ol>
 
         </div>
         
@@ -204,7 +370,7 @@ var _hmt = _hmt || [];
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Docker/">Docker</a>, <a class="has-link-grey -link" href="/tags/LXC/">LXC</a>
+                    <a class="has-link-grey -link" href="/tags/gitlab-update/">gitlab update</a>
                 </div>
             </div>
         </div>
@@ -256,16 +422,16 @@ var _hmt = _hmt || [];
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/11/22/python-GIL/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/02/27/moveagitlabrepotogerrit/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">为什么说Python是伪多线程</span>
+                <span class="level-item">迁移一个Gitlab项目至Gerrit</span>
             </a>
         </div>
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/15/yonghutai-neihetai/">
-                <span class="level-item">用户态和内核态的区别</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/12/12/打家劫舍/">
+                <span class="level-item">打家劫舍</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -415,39 +581,59 @@ var _hmt = _hmt || [];
             <h3 class="menu-label">
                 目录
             </h3>
-            <ul class="menu-list"><li>
-        <a class="is-flex" href="#Docker的实现">
-        <span class="has-mr-6">1</span>
-        <span>Docker的实现</span>
-        </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#pid-命名空间">
+            <ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#推荐升级路径：">
         <span class="has-mr-6">1.1</span>
-        <span>pid 命名空间</span>
+        <span>推荐升级路径：</span>
         </a></li><li>
-        <a class="is-flex" href="#net-命名空间">
+        <a class="is-flex" href="#Gitlab版本说明">
         <span class="has-mr-6">1.2</span>
-        <span>net 命名空间</span>
-        </a></li><li>
-        <a class="is-flex" href="#ipc-命名空间">
-        <span class="has-mr-6">1.3</span>
-        <span>ipc 命名空间</span>
-        </a></li><li>
-        <a class="is-flex" href="#mnt-命名空间">
-        <span class="has-mr-6">1.4</span>
-        <span>mnt 命名空间</span>
-        </a></li><li>
-        <a class="is-flex" href="#uts-命名空间">
-        <span class="has-mr-6">1.5</span>
-        <span>uts 命名空间</span>
-        </a></li><li>
-        <a class="is-flex" href="#user-命名空间">
-        <span class="has-mr-6">1.6</span>
-        <span>user 命名空间</span>
-        </a></li></ul></li><li>
-        <a class="is-flex" href="#Linux-Container简介">
+        <span>Gitlab版本说明</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#特定版本的更改">
         <span class="has-mr-6">2</span>
-        <span>Linux Container简介</span>
-        </a></li></ul>
+        <span>特定版本的更改</span>
+        </a><ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#GitLab-11具体的变化">
+        <span class="has-mr-6">2.1.1</span>
+        <span>GitLab 11具体的变化</span>
+        </a></li><li>
+        <a class="is-flex" href="#升级先决条件">
+        <span class="has-mr-6">2.1.2</span>
+        <span>升级先决条件</span>
+        </a></li></ul></ul></li><li>
+        <a class="is-flex" href="#次要版本中引入的更改">
+        <span class="has-mr-6">3</span>
+        <span>次要版本中引入的更改</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#11-2">
+        <span class="has-mr-6">3.1</span>
+        <span>11.2</span>
+        </a></li><li>
+        <a class="is-flex" href="#11-4">
+        <span class="has-mr-6">3.2</span>
+        <span>11.4</span>
+        </a></li><li>
+        <a class="is-flex" href="#11-6">
+        <span class="has-mr-6">3.3</span>
+        <span>11.6</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#升级文档">
+        <span class="has-mr-6">4</span>
+        <span>升级文档</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#升级步骤">
+        <span class="has-mr-6">4.1</span>
+        <span>升级步骤</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#获取安装包">
+        <span class="has-mr-6">4.1.1</span>
+        <span>获取安装包</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#回滚方案：">
+        <span class="has-mr-6">4.2</span>
+        <span>回滚方案：</span>
+        </a></li></ul></li></ul>
         </div>
     </div>
 </div>
