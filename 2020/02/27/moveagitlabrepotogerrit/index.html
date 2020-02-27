@@ -19,7 +19,7 @@
 <meta property="og:description" content="Gerrit采用的分支方法与标准Git不同。在Gerrit中，基本上每个分支都是受保护的分支，但是对分支的需求要低得多，因为Gerrit会根据需要自动创建它们。作为开发人员，我可以在master分支上工作，当我推送到origin时，Gerrit会自动在Origin中创建一个称为refs/for/master的“虚拟”分支，并将更改放入该分支。这类似于在问题中创建MR时GitLab合并请求创建分支的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-27T14:17:01.642Z">
+<meta property="og:updated_time" content="2020-02-27T14:36:33.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迁移一个Gitlab项目至Gerrit">
 <meta name="twitter:description" content="Gerrit采用的分支方法与标准Git不同。在Gerrit中，基本上每个分支都是受保护的分支，但是对分支的需求要低得多，因为Gerrit会根据需要自动创建它们。作为开发人员，我可以在master分支上工作，当我推送到origin时，Gerrit会自动在Origin中创建一个称为refs/for/master的“虚拟”分支，并将更改放入该分支。这类似于在问题中创建MR时GitLab合并请求创建分支的">
@@ -177,7 +177,9 @@ var _hmt = _hmt || [];
 <p>目前也没有批量迁移gitlab项目至gerrit的工具，比较保险的方法如下：</p>
 <p>1)使用UI在Gerrit中创建存储库(或要求Gerrit管理员执行此操作)</p>
 <p>2)使用” –bare”选项克隆Gitlab存储库</p>
-<figure class="highlight plain hljs"><figcaption><span>clone --bare GITLAB-URL```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3)添加Gerrit remote</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">cd REPO-NAME</span><br><span class="line">git remote add gerrit GERRIT-URL</span><br></pre></td></tr></table></figure>
+<p><code>git clone --bare GITLAB-URL</code></p>
+<p>3)添加Gerrit remote</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd REPO-NAME</span><br><span class="line">git remote add gerrit GERRIT-URL</span><br></pre></td></tr></table></figure>
 
 <p>4)将所有提交，分支和标签推送到Gerrit</p>
 <figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push --all gerrit</span><br><span class="line">git push --tags gerrit</span><br></pre></td></tr></table></figure>
@@ -189,7 +191,7 @@ var _hmt = _hmt || [];
 <p>git clone origin-url（非裸）：您将得到所有复制的标签，一个本地分支master (HEAD)追踪远程分支origin/master和远程分支origin/next，origin/pu和origin/maint。设置了跟踪分支，这样如果你做了类似的事情git fetch origin，它们就会像你期望的那样被提取。任何远程分支（在克隆的远程中）和其他引用都被完全忽略。</p>
 <p>git clone –bare origin-url：您将获得全部复制的标签，地方分支机构master (HEAD)，next，pu，和maint，没有远程跟踪分支。也就是说，所有分支都按原样复制，并且它设置为完全独立，不期望再次获取。任何远程分支（在克隆的远程中）和其他引用都被完全忽略。</p>
 <p>git clone –mirror origin-url：这些引用中的每一个都将按原样复制。你会得到所有的标签，地方分支机构master (HEAD)，next，pu，和maint，远程分支机构devA/master和devB/master其他裁判refs/foo/bar和refs/foo/baz。一切都与克隆的遥控器完全一样。设置远程跟踪，以便在运行时，git remote update所有引用都将从原点覆盖，就像您刚删除镜像并重新克隆它一样。正如文档最初所说，它是一面镜子。它应该是功能相同的副本，可与原始版本互换。</p>
-<p>经测试，clone选项 –bare和–mirror均可成功实现迁移，不过还是建议用–bare克隆裸库。 </p>
+<p>经测试，clone选项 –bare和–mirror均可成功实现迁移，不过还是建议用–bare克隆裸库。</p>
 
         </div>
         
