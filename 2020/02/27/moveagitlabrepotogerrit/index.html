@@ -7,18 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>moveagitlabrepotogerrit - 世界第一半藏</title>
+<title>迁移一个Gitlab项目至Gerrit - 世界第一半藏</title>
 
 
-    <meta property="og:type" content="article">
-<meta property="og:title" content="moveagitlabrepotogerrit">
+    <meta name="description" content="Gerrit采用的分支方法与标准Git不同。在Gerrit中，基本上每个分支都是受保护的分支，但是对分支的需求要低得多，因为Gerrit会根据需要自动创建它们。作为开发人员，我可以在master分支上工作，当我推送到origin时，Gerrit会自动在Origin中创建一个称为refs/for/master的“虚拟”分支，并将更改放入该分支。这类似于在问题中创建MR时GitLab合并请求创建分支的">
+<meta name="keywords" content="Gitlab,Gerrit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迁移一个Gitlab项目至Gerrit">
 <meta property="og:url" content="https://peteryjc.github.io/2020/02/27/moveagitlabrepotogerrit/index.html">
 <meta property="og:site_name" content="世界第一半藏">
+<meta property="og:description" content="Gerrit采用的分支方法与标准Git不同。在Gerrit中，基本上每个分支都是受保护的分支，但是对分支的需求要低得多，因为Gerrit会根据需要自动创建它们。作为开发人员，我可以在master分支上工作，当我推送到origin时，Gerrit会自动在Origin中创建一个称为refs/for/master的“虚拟”分支，并将更改放入该分支。这类似于在问题中创建MR时GitLab合并请求创建分支的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-27T13:56:29.884Z">
+<meta property="og:updated_time" content="2020-02-27T14:03:15.925Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="moveagitlabrepotogerrit">
+<meta name="twitter:title" content="迁移一个Gitlab项目至Gerrit">
+<meta name="twitter:description" content="Gerrit采用的分支方法与标准Git不同。在Gerrit中，基本上每个分支都是受保护的分支，但是对分支的需求要低得多，因为Gerrit会根据需要自动创建它们。作为开发人员，我可以在master分支上工作，当我推送到origin时，Gerrit会自动在Origin中创建一个称为refs/for/master的“虚拟”分支，并将更改放入该分支。这类似于在问题中创建MR时GitLab合并请求创建分支的">
 <meta name="twitter:image" content="https://peteryjc.github.io/images/og_image.png">
 <meta name="twitter:creator" content="@peteryangjc">
 <meta name="twitter:site" content="https://twitter.com/peteryangjc">
@@ -115,6 +119,10 @@ var _hmt = _hmt || [];
             <div class="navbar-end">
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -137,11 +145,15 @@ var _hmt = _hmt || [];
             <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2020-02-27T13:56:29.000Z">2020-02-27</time>
                 
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Gitlab/">Gitlab</a>
+                </div>
+                
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 0 个字)
+                    6 分钟 读完 (大约 828 个字)
                 </span>
                 
                 
@@ -155,11 +167,39 @@ var _hmt = _hmt || [];
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                moveagitlabrepotogerrit
+                迁移一个Gitlab项目至Gerrit
             
         </h1>
         <div class="content">
-            
+            <p>Gerrit采用的分支方法与标准Git不同。在Gerrit中，基本上每个分支都是受保护的分支，但是对分支的需求要低得多，因为Gerrit会根据需要自动创建它们。作为开发人员，我可以在master分支上工作，当我推送到origin时，Gerrit会自动在Origin中创建一个称为<code>refs/for/master</code>的“虚拟”分支，并将更改放入该分支。这类似于在问题中创建MR时GitLab合并请求创建分支的过程。区别在于，有<code>refs/for/master</code>是虚拟的，所以有很多-我有<code>refs/for/master</code>，有<code>refs/for/master</code>，每个推送的人在原始仓库中都有一个。更改将保留在该虚拟分支上，直到按照规则完成审核为止，这时它将合并，并且虚拟分支将被删除。Gerrit支持分支上的读写特权，而不仅仅是写特权。</p>
+<a id="more"></a>
+
+<p>目前也没有批量迁移gitlab项目至gerrit的工具，比较保险的方法如下：</p>
+<p>1)使用UI在Gerrit中创建存储库(或要求Gerrit管理员执行此操作)</p>
+<p>2)使用” –bare”选项克隆Gitlab存储库</p>
+<figure class="highlight plain hljs"><figcaption><span>clone --bare GITLAB-URL```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3)添加Gerrit remote</span><br><span class="line"></span><br><span class="line">```cd REPO-NAME</span><br><span class="line">git remote add gerrit GERRIT-URL</span><br></pre></td></tr></table></figure>
+
+<p>4)将所有提交，分支和标签推送到Gerrit</p>
+<figure class="highlight plain hljs"><figcaption><span>push --all gerrit</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --tags gerrit</span><br></pre></td></tr></table></figure>
+
+<p>5)删除临时存储库</p>
+<figure class="highlight plain hljs"><figcaption><span>..</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf REPO-NAME</span><br></pre></td></tr></table></figure>
+
+<p>以上请确保已经添加了公钥到新的机器上，以下是clone时的区别：</p>
+<p>git clone origin-url（非裸）：您将得到所有复制的标签，一个本地分支master (HEAD)追踪远程分支origin/master和远程分支origin/next，origin/pu和origin/maint。设置了跟踪分支，这样如果你做了类似的事情git fetch origin，它们就会像你期望的那样被提取。任何远程分支（在克隆的远程中）和其他引用都被完全忽略。</p>
+<p>git clone –bare origin-url：您将获得全部复制的标签，地方分支机构master (HEAD)，next，pu，和maint，没有远程跟踪分支。也就是说，所有分支都按原样复制，并且它设置为完全独立，不期望再次获取。任何远程分支（在克隆的远程中）和其他引用都被完全忽略。</p>
+<p>git clone –mirror origin-url：这些引用中的每一个都将按原样复制。你会得到所有的标签，地方分支机构master (HEAD)，next，pu，和maint，远程分支机构devA/master和devB/master其他裁判refs/foo/bar和refs/foo/baz。一切都与克隆的遥控器完全一样。设置远程跟踪，以便在运行时，git remote update所有引用都将从原点覆盖，就像您刚删除镜像并重新克隆它一样。正如文档最初所说，它是一面镜子。它应该是功能相同的副本，可与原始版本互换。</p>
+<p>经测试，clone选项 –bare和–mirror均可成功实现迁移，不过还是建议用–bare克隆裸库。 </p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Gerrit/">Gerrit</a>, <a class="has-link-grey -link" href="/tags/Gitlab/">Gitlab</a>
+                </div>
+            </div>
         </div>
         
         
@@ -295,7 +335,7 @@ var _hmt = _hmt || [];
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        7
+                        8
                     </p>
                 </div>
             </div>
@@ -305,7 +345,7 @@ var _hmt = _hmt || [];
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        12
+                        14
                     </p>
                 </div>
             </div>
@@ -355,6 +395,16 @@ var _hmt = _hmt || [];
 
     
         
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            
+        </div>
+    </div>
+</div>
     
         <div class="card widget">
     <div class="card-content">
@@ -367,6 +417,20 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Docker/">
                         <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Gerrit/">
+                        <span class="tag">Gerrit</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Gitlab/">
+                        <span class="tag">Gitlab</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -470,6 +534,14 @@ var _hmt = _hmt || [];
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/Gitlab/">
+            <span class="level-start">
+                <span class="level-item">Gitlab</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/Linux基础/">
             <span class="level-start">
                 <span class="level-item">Linux基础</span>
@@ -528,7 +600,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/LXC/" style="font-size: 10px;">LXC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/java关键字/" style="font-size: 10px;">java关键字</a> <a href="/tags/k8s基础/" style="font-size: 10px;">k8s基础</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/内核态/" style="font-size: 10px;">内核态</a> <a href="/tags/用户态/" style="font-size: 10px;">用户态</a> <a href="/tags/面经/" style="font-size: 10px;">面经</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Gerrit/" style="font-size: 10px;">Gerrit</a> <a href="/tags/Gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/tags/LXC/" style="font-size: 10px;">LXC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/java关键字/" style="font-size: 10px;">java关键字</a> <a href="/tags/k8s基础/" style="font-size: 10px;">k8s基础</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/内核态/" style="font-size: 10px;">内核态</a> <a href="/tags/用户态/" style="font-size: 10px;">用户态</a> <a href="/tags/面经/" style="font-size: 10px;">面经</a>
     </div>
 </div>
 
