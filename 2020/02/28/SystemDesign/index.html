@@ -7,18 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>SystemDesign - 世界第一半藏</title>
+<title>系统设计题 - 世界第一半藏</title>
 
 
-    <meta property="og:type" content="article">
-<meta property="og:title" content="SystemDesign">
+    <meta name="description" content="最近在看一些面试书籍，发现一些很好的看方法就搬运过来，侵删。以下内容来自《面试宝典》。">
+<meta name="keywords" content="面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统设计题">
 <meta property="og:url" content="https://peteryjc.github.io/2020/02/28/SystemDesign/index.html">
 <meta property="og:site_name" content="世界第一半藏">
+<meta property="og:description" content="最近在看一些面试书籍，发现一些很好的看方法就搬运过来，侵删。以下内容来自《面试宝典》。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-28T13:31:44.395Z">
+<meta property="og:updated_time" content="2020-02-28T13:42:33.015Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SystemDesign">
+<meta name="twitter:title" content="系统设计题">
+<meta name="twitter:description" content="最近在看一些面试书籍，发现一些很好的看方法就搬运过来，侵删。以下内容来自《面试宝典》。">
 <meta name="twitter:image" content="https://peteryjc.github.io/images/og_image.png">
 <meta name="twitter:creator" content="@peteryangjc">
 <meta name="twitter:site" content="https://twitter.com/peteryangjc">
@@ -137,11 +141,15 @@ var _hmt = _hmt || [];
             <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2020-02-28T13:31:44.000Z">2020-02-28</time>
                 
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/系统设计/">系统设计</a>
+                </div>
+                
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 0 个字)
+                    18 分钟 读完 (大约 2673 个字)
                 </span>
                 
                 
@@ -155,11 +163,49 @@ var _hmt = _hmt || [];
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                SystemDesign
+                系统设计题
             
         </h1>
         <div class="content">
-            
+            <p>最近在看一些面试书籍，发现一些很好的看方法就搬运过来，侵删。以下内容来自《面试宝典》。</p>
+<a id="more"></a>
+
+<p>如何应对此类题目呢？在正式介绍基础知识之前，首先罗列几个常见的系统设计相关的面试笔试题，如下所示：</p>
+<p>（1）设计一个 DNS 的 Cache 结构，要求能够满足每秒 5000 次以上的查询，满足 IP 数据的快速插入，查询的速度要快（题目还给出了一系列的数据，比如站点数总共为 5000 万、IP 地址有 1000 万等）。</p>
+<p>（2）有 N 台机器，M 个文件，文件可以以任意方式存放到任意机器上，文件可任意分割成若干块。假设这 N 台机器的宕机率小于 1/3，想在宕机时可以从其他未宕机的机器中完整导出这 M 个文件，求最好的存放与分割策略。</p>
+<p>（3）假设有 30 台服务器，每台服务器上面都存有上百亿条数据（有可能重复），如何找出这 30 台机器中，根据某关键字，重复出现次数最多的前 100 条？要求使用 Hadoop 来实现。</p>
+<p>（4）设计一个系统，要求写速度尽可能快，并说明设计原理。</p>
+<p>（5）设计一个高并发系统，说明架构和关键技术要点。</p>
+<p>（6）有 25TB 的日志（query-＞queryinfo），日志在不断地增长，设计一个方案，给出一个 query 能快速返回 queryinfo。</p>
+<p>以上所有问题中凡是不涉及高并发的，基本可以采用 Google 的三个技术解决，即 GFS、MapReduce 和 Bigtable，这三个技术被称为「Google 三驾马车」，Google 只公开了论文而未开源代码，开源界对此非常有兴趣，仿照这三篇论文实现了一系列软件，如 Hadoop、HBase、HDFS 及 Cassandra 等。</p>
+<p>在 Google 这些技术还未出现之前，企业界在设计大规模分布式系统时，采用的架构往往是 database+sharding+cache，现在很多公司（比如 taobao、weibo.com）仍采用这种架构。在这种架构中，仍有很多问题值得去探讨。如采用什么数据库，是 SQL 界的 MySQL 还是 NoSQL 界的 Redis/TFS，两者有何优劣？采用什么方式 sharding（数据分片），是水平分片还是垂直分片？据网上资料显示，weibo.com 和 taobao 图片存储中曾采用的架构是 Redis/MySQL/TFS+sharding+cache，该架构解释如下：前端 cache 是为了提高响应速度，后端数据库则用于数据永久存储，防止数据丢失，而 sharding 是为了在多台机器间分摊负载。最前端由大块大块的 cache 组成，要保证至少 99% 的访问数据落在 cache 中，这样可以保证用户访问速度，减少后端数据库的压力。此外，为了保证前端 cache 中的数据与后端数据库中的数据一致，需要有一个中间件异步更新（为什么使用异步？理由简单：同步代价太高。异步有缺点，如何弥补？）数据，这个有些人可能比较清楚，新浪有个开源软件叫 Memcachedb（整合了 Berkeley DB 和 Memcached），正是完成此功能。另外，为了分摊负载压力和海量数据，会将用户微博信息经过分片后存放到不同节点上（称为「Sharding」）。</p>
+<p>这种架构优点非常明显：简单，在数据量和用户量较小的时候完全可以胜任。但缺点是扩展性和容错性太差，维护成本非常高，尤其是数据量和用户量暴增之后，系统不能通过简单地增加机器解决该问题。</p>
+<p>鉴于此，新的架构应运而生。新的架构仍然采用 Google 公司的架构模式与设计思想，以下将分别就此内容进行分析。</p>
+<p><strong>GFS</strong>：这是一个可扩展的分布式文件系统，用于大型的、分布式的、对大量数据进行访问的应用。它运行于廉价的普通硬件上，提供容错功能。现在开源界有 HDFS（Hadoop Distributed File System），该文件系统虽然弥补了数据库 +sharding 的很多缺点，但自身仍存在一些问题，比如：由于采用 master/slave 架构，因此存在单点故障问题；元数据信息全部存放在 master 端的内存中，因而不适合存储小文件，或者说如果存储大量小文件，那么存储的总数据量不会太大。</p>
+<p><strong>MapReduce</strong>：这是针对分布式并行计算的一套编程模型。其最大的优点是：编程接口简单，自动备份（数据默认情况下会自动备三份），自动容错和隐藏跨机器间的通信。在 Hadoop 中，MapReduce 作为分布计算框架，HDFS 作为底层的分布式存储系统，但 MapReduce 不是与 HDFS 耦合在一起的，完全可以使用自己的分布式文件系统替换掉 HDFS。当前 MapReduce 有很多开源实现，如 Java 实现 Hadoop MapReduce，C++ 实现 Sector/sphere 等，甚至有些数据库厂商将 MapReduce 集成到数据库中了。</p>
+<p><strong>BigTable</strong>：俗称「大表」，是用来存储结构化数据的，作者觉得，BigTable 在开源界最火爆，其开源实现最多，包括 HBase、Cassandra 和 levelDB 等，使用也非常广泛。</p>
+<p>除了 Google 的这「三驾马车」以外，还有其他一些技术可供学习与使用：</p>
+<p><strong>Dynamo</strong>：亚马逊的 key-value 模式的存储平台，可用性和扩展性都很好，采用 DHT（DistributedHashTable）对数据分片，解决单点故障问题，在 Cassandra 中，也借鉴了该技术，在 BT 和电驴这两种下载引擎中，也采用了类似算法。</p>
+<p><strong>虚拟节点技术</strong>：该技术常用于分布式数据分片中。具体应用场景是：有一大块数据（可能 TB 级或者 PB 级），需按照某个字段（key）分片存储到几十（或者更多）台机器上，同时想尽量负载均衡且容易扩展。传统的做法是：Hash（key）mod N，这种方法最大的缺点是不容易扩展，即增加或者减少机器均会导致数据全部重分布，代价太大。于是新技术诞生了，其中一种是上面提到的 DHT，现在已经被很多大型系统采用，还有一种是对「Hash（key）mod N」的改进：假设要将数据分布到 20 台机器上，传统做法是 Hash（key）mod 20，而改进后，N 取值要远大于 20，比如是 20000000，然后采用额外一张表记录每个节点存储的 key 的模值，比如：</p>
+<p>node1：0～1000000</p>
+<p>node2：1000001～2000000</p>
+<p>……</p>
+<p>这样，当添加一个新的节点时，只需将每个节点上部分数据移动给新节点，同时修改一下该表即可。</p>
+<p>Thrift：Thrift 是一个跨语言的 RPC 框架，分别解释「RPC」和「跨语言」如下：RPC 是远程过程调用，其使用方式与调用一个普通函数一样，但执行体发生在远程机器上；跨语言是指不同语言之间进行通信，比如 C/S 架构中，Server 端采用 C++ 编写，Client 端采用 PHP 编写，怎样让两者之间通信，Thrift 是一种很好的方式。</p>
+<p>本篇最前面的几道题均可以映射到以上几个系统的某个模块中，如：</p>
+<p>（1）关于高并发系统设计，主要有以下几个关键技术点：<strong>缓存、索引、数据分片及锁粒度尽可能小</strong>。</p>
+<p>（2）题目 2 涉及现在通用的分布式文件系统的副本存放策略。一般是将大文件切分成小的 block（如 64MB）后，以 block 为单位存放三份到不同的节点上，<strong>这三份数据的位置需根据网络拓扑结构配置</strong>，一般而言，如果不考虑跨数据中心，可以这样存放：两个副本存放在同一个机架的不同节点上，而另外一个副本存放在另一个机架上，这样从效率和可靠性上，都是最优的（这个 Google 公布的文档中有专门的证明，有兴趣的可参阅一下）。如果考虑跨数据中心，可将两份存在一个数据中心的不同机架上，另一份放到另一个数据中心。</p>
+<p>（3）题目 4 涉及 BigTable 的模型。主要思想是将随机写转化为顺序写，进而大大提高写速度。具体是：由于磁盘物理结构的独特设计，其并发的随机写（主要是因为磁盘寻道时间长）非常慢，考虑到这一点，在 BigTable 模型中，首先会将并发写的大批数据放到一个内存表（称为「memtable」）中，当该表大到一定程度后，会顺序写到一个磁盘表（称为「SSTable」）中，这种写是顺序写，效率极高。此时可能有读者问，随机读可不可以这样优化？答案是：看情况。通常而言，如果读并发度不高，则不可以这么做，因为如果将多个读重新排列组合后再执行，系统的响应时间太慢，用户可能接受不了，而如果读并发度极高，也许可以采用类似机制。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/面试/">面试</a>
+                </div>
+            </div>
         </div>
         
         
@@ -305,7 +351,7 @@ var _hmt = _hmt || [];
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        15
+                        16
                     </p>
                 </div>
             </div>
@@ -469,6 +515,13 @@ var _hmt = _hmt || [];
                     </a>
                 </div>
                 
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/面试/">
+                        <span class="tag">面试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -496,7 +549,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">Gitlab</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">2</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/Linux基础/">
@@ -510,14 +563,6 @@ var _hmt = _hmt || [];
         <a class="level is-marginless" href="/categories/Python原理/">
             <span class="level-start">
                 <span class="level-item">Python原理</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/gitlab/">
-            <span class="level-start">
-                <span class="level-item">gitlab</span>
             </span>
             <span class="level-end">
                 <span class="level-item tag">1</span>
@@ -554,6 +599,14 @@ var _hmt = _hmt || [];
             <span class="level-end">
                 <span class="level-item tag">1</span>
             </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/系统设计/">
+            <span class="level-start">
+                <span class="level-item">系统设计</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
         </a></li>
             </ul>
         </div>
@@ -565,7 +618,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Gerrit/" style="font-size: 10px;">Gerrit</a> <a href="/tags/Gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/tags/LXC/" style="font-size: 10px;">LXC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/gitlab-update/" style="font-size: 10px;">gitlab update</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/java关键字/" style="font-size: 10px;">java关键字</a> <a href="/tags/k8s基础/" style="font-size: 10px;">k8s基础</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/内核态/" style="font-size: 10px;">内核态</a> <a href="/tags/用户态/" style="font-size: 10px;">用户态</a> <a href="/tags/面经/" style="font-size: 10px;">面经</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Gerrit/" style="font-size: 10px;">Gerrit</a> <a href="/tags/Gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/tags/LXC/" style="font-size: 10px;">LXC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/gitlab-update/" style="font-size: 10px;">gitlab update</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/java关键字/" style="font-size: 10px;">java关键字</a> <a href="/tags/k8s基础/" style="font-size: 10px;">k8s基础</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/内核态/" style="font-size: 10px;">内核态</a> <a href="/tags/用户态/" style="font-size: 10px;">用户态</a> <a href="/tags/面经/" style="font-size: 10px;">面经</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
 </div>
 
