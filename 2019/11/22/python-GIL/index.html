@@ -11,7 +11,7 @@
 
 
     <meta name="description" content="学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 +">
-<meta name="keywords" content="面经,python">
+<meta name="keywords" content="面试,python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么说Python是伪多线程">
 <meta property="og:url" content="https://peteryjc.github.io/2019/11/22/python-GIL/index.html">
@@ -19,7 +19,7 @@
 <meta property="og:description" content="学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 +">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2019-11-22T12:39:32.398Z">
+<meta property="og:updated_time" content="2020-03-01T14:16:19.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么说Python是伪多线程">
 <meta name="twitter:description" content="学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 +">
@@ -196,7 +196,7 @@ var _hmt = _hmt || [];
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/python/">python</a>, <a class="has-link-grey -link" href="/tags/面经/">面经</a>
+                    <a class="has-link-grey -link" href="/tags/python/">python</a>, <a class="has-link-grey -link" href="/tags/面试/">面试</a>
                 </div>
             </div>
         </div>
@@ -331,7 +331,7 @@ var _hmt = _hmt || [];
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        10
+                        11
                     </p>
                 </div>
             </div>
@@ -341,7 +341,7 @@ var _hmt = _hmt || [];
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        9
+                        10
                     </p>
                 </div>
             </div>
@@ -446,6 +446,13 @@ var _hmt = _hmt || [];
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/gerrit权限/">
+                        <span class="tag">gerrit权限</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/gitlab-update/">
                         <span class="tag">gitlab update</span>
                         <span class="tag is-grey">1</span>
@@ -509,16 +516,9 @@ var _hmt = _hmt || [];
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/面经/">
-                        <span class="tag">面经</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
                     <a class="tags has-addons" href="/tags/面试/">
                         <span class="tag">面试</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
@@ -539,6 +539,14 @@ var _hmt = _hmt || [];
         <a class="level is-marginless" href="/categories/Docker/">
             <span class="level-start">
                 <span class="level-item">Docker</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Gerrit/">
+            <span class="level-start">
+                <span class="level-item">Gerrit</span>
             </span>
             <span class="level-end">
                 <span class="level-item tag">1</span>
@@ -618,7 +626,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Gerrit/" style="font-size: 10px;">Gerrit</a> <a href="/tags/Gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/tags/LXC/" style="font-size: 10px;">LXC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/gitlab-update/" style="font-size: 10px;">gitlab update</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/java关键字/" style="font-size: 10px;">java关键字</a> <a href="/tags/k8s基础/" style="font-size: 10px;">k8s基础</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/内核态/" style="font-size: 10px;">内核态</a> <a href="/tags/用户态/" style="font-size: 10px;">用户态</a> <a href="/tags/面经/" style="font-size: 10px;">面经</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Gerrit/" style="font-size: 10px;">Gerrit</a> <a href="/tags/Gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/tags/LXC/" style="font-size: 10px;">LXC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/gerrit权限/" style="font-size: 10px;">gerrit权限</a> <a href="/tags/gitlab-update/" style="font-size: 10px;">gitlab update</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/java关键字/" style="font-size: 10px;">java关键字</a> <a href="/tags/k8s基础/" style="font-size: 10px;">k8s基础</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/内核态/" style="font-size: 10px;">内核态</a> <a href="/tags/用户态/" style="font-size: 10px;">用户态</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a>
     </div>
 </div>
 
