@@ -7,17 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: Docker - 世界第一半藏</title>
+<title>RAID简单介绍 - 世界第一半藏</title>
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="世界第一半藏">
-<meta property="og:url" content="https://peteryjc.github.io/tags/Docker/index.html">
+    <meta name="description" content="简单介绍一下常用的RAID方式，一共有0~6一共7种，这其中RAID 0、RAID1、RAID 5和RAID6比较常用。">
+<meta name="keywords" content="RAID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAID简单介绍">
+<meta property="og:url" content="https://peteryjc.github.io/2020/03/14/RAID简单介绍/index.html">
 <meta property="og:site_name" content="世界第一半藏">
+<meta property="og:description" content="简单介绍一下常用的RAID方式，一共有0~6一共7种，这其中RAID 0、RAID1、RAID 5和RAID6比较常用。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
+<meta property="og:updated_time" content="2020-03-14T09:39:21.336Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="世界第一半藏">
+<meta name="twitter:title" content="RAID简单介绍">
+<meta name="twitter:description" content="简单介绍一下常用的RAID方式，一共有0~6一共7种，这其中RAID 0、RAID1、RAID 5和RAID6比较常用。">
 <meta name="twitter:image" content="https://peteryjc.github.io/images/og_image.png">
 <meta name="twitter:creator" content="@peteryangjc">
 <meta name="twitter:site" content="https://twitter.com/peteryangjc">
@@ -80,7 +85,7 @@ var _hmt = _hmt || [];
 
 <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="is-3-column">
+<body class="is-2-column">
     <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
@@ -114,6 +119,10 @@ var _hmt = _hmt || [];
             <div class="navbar-end">
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -127,78 +136,148 @@ var _hmt = _hmt || [];
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Docker</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
 <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-18T14:34:18.000Z">2019-11-18</time>
+                <time class="level-item has-text-grey" datetime="2020-03-14T09:31:43.000Z">2020-03-14</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    11 分钟 读完 (大约 1658 个字)
+                    4 分钟 读完 (大约 561 个字)
                 </span>
                 
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/11/18/simple-docker/">Docker与LXC简介</a>
+                RAID简单介绍
             
         </h1>
         <div class="content">
-            <p>Docker 是一个开源的应用容器引擎，基于 <a href="https://www.runoob.com/go/go-tutorial.html" target="_blank" rel="noopener">Go 语言</a> 并遵从Apache2.0协议开源。Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。</p>
-<p>Linux Container容器是一种内核虚拟化技术，可以提供轻量级的虚拟化，以便隔离进程和资源。</p>
+            <p>简单介绍一下常用的RAID方式，一共有0~6一共7种，这其中RAID 0、RAID1、RAID 5和RAID6比较常用。</p>
+<a id="more"></a>
+
+<h3 id="RAID-0"><a href="#RAID-0" class="headerlink" title="RAID 0"></a>RAID 0</h3><p>如果你有n块磁盘，原来只能同时写一块磁盘，写满了再下一块，做了RAID 0之后，n块可以同时写，速度提升很快，但由于没有备份，可靠性很差。n最少为2。</p>
+<h3 id="RAID-1"><a href="#RAID-1" class="headerlink" title="RAID 1"></a>RAID 1</h3><p>正因为RAID 0太不可靠，所以衍生出了RAID 1。如果你有n块磁盘，把其中n/2块磁盘作为镜像磁盘，在往其中一块磁盘写入数据时，也同时往另一块写数据。坏了其中一块时，镜像磁盘自动顶上，可靠性最佳，但空间利用率太低。n最少为2。</p>
+<h3 id="RAID-3"><a href="#RAID-3" class="headerlink" title="RAID 3"></a>RAID 3</h3><p>RAID 3是若你有n块盘，其中1块盘作为校验盘，剩余n-1块盘相当于作RAID 0同时读写，当其中一块盘坏掉时，可以通过校验码还原出坏掉盘的原始数据。这个校验方式比较特别，奇偶检验，1 XOR 0 XOR 1=0，0 XOR 1 XOR 0=1，最后的数据时校验数据，当中间缺了一个数据时，可以通过其他盘的数据和校验数据推算出来。但是这有个问题，由于n-1块盘做了RAID 0，每一次读写都要牵动所有盘来为它服务，而且万一校验盘坏掉就完蛋了。最多允许坏一块盘。n最少为3。</p>
+<h3 id="RAID-5"><a href="#RAID-5" class="headerlink" title="RAID 5"></a>RAID 5</h3><p>在RAID 3的基础上有所区别，同样是相当于是1块盘的大小作为校验盘，n-1块盘的大小作为数据盘，但校验码分布在各个磁盘中，不是单独的一块磁盘，也就是分布式校验盘，这样做好处多多。最多坏一块盘。n最少为3。</p>
+<h3 id="RAID6"><a href="#RAID6" class="headerlink" title="RAID6"></a>RAID6</h3><p>在RAID 5的基础上，又增加了一种校验码，和解方程似的，一种校验码一个方程，最多有两个未知数，也就是最多坏两块盘。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gctle631n7j310a094100.jpg" alt="image-20200314173805490"></p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/11/18/simple-docker/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/RAID/">RAID</a>
                 </div>
             </div>
         </div>
         
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b5b901377caa996"></script>
+
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechatpay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/03/Gerrit权限控制/">
+                <span class="level-item">Gerrit权限控制</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: '5YP2IqekJJ7rMlMG3l9DSSRw-gzGzoHsz',
+        app_key: 'AxttSsP8e4PtWbSjnUuzeP7k',
+        placeholder: 'Say something...'
+    });
+</script>
+
+    </div>
+</div>
 </div>
                 
 
 
 
 
-<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left ">
     
         
 <div class="card widget">
@@ -306,6 +385,36 @@ var _hmt = _hmt || [];
 
     
         
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#RAID-0">
+        <span class="has-mr-6">1</span>
+        <span>RAID 0</span>
+        </a></li><li>
+        <a class="is-flex" href="#RAID-1">
+        <span class="has-mr-6">2</span>
+        <span>RAID 1</span>
+        </a></li><li>
+        <a class="is-flex" href="#RAID-3">
+        <span class="has-mr-6">3</span>
+        <span>RAID 3</span>
+        </a></li><li>
+        <a class="is-flex" href="#RAID-5">
+        <span class="has-mr-6">4</span>
+        <span>RAID 5</span>
+        </a></li><li>
+        <a class="is-flex" href="#RAID6">
+        <span class="has-mr-6">5</span>
+        <span>RAID6</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
     
         <div class="card widget">
     <div class="card-content">
@@ -552,7 +661,7 @@ var _hmt = _hmt || [];
 
     
     
-        <div class="column-right-shadow is-hidden-widescreen ">
+        <div class="column-right-shadow  ">
         
             
 
@@ -594,219 +703,6 @@ var _hmt = _hmt || [];
 
         
         </div>
-    
-</div>
-
-                
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        <div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            最新文章
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2020/03/14/RAID简单介绍/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="RAID简单介绍">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-14T09:31:43.000Z">2020-03-14</time></div>
-                    <a href="/2020/03/14/RAID简单介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">RAID简单介绍</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/03/03/Gerrit权限控制/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Gerrit权限控制">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-03T10:33:19.000Z">2020-03-03</time></div>
-                    <a href="/2020/03/03/Gerrit权限控制/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Gerrit权限控制</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Gerrit/">Gerrit</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/02/28/SystemDesign/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="系统设计题">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-28T13:31:44.000Z">2020-02-28</time></div>
-                    <a href="/2020/02/28/SystemDesign/" class="title has-link-black-ter is-size-6 has-text-weight-normal">系统设计题</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/系统设计/">系统设计</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/02/27/moveagitlabrepotogerrit/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="迁移一个Gitlab项目至Gerrit">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-27T13:56:29.000Z">2020-02-27</time></div>
-                    <a href="/2020/02/27/moveagitlabrepotogerrit/" class="title has-link-black-ter is-size-6 has-text-weight-normal">迁移一个Gitlab项目至Gerrit</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Gitlab/">Gitlab</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/12/18/Gitlab跨版本升级/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Gitlab跨版本升级">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-18T13:03:05.000Z">2019-12-18</time></div>
-                    <a href="/2019/12/18/Gitlab跨版本升级/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Gitlab跨版本升级</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Gitlab/">Gitlab</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            归档
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/03/">
-                <span class="level-start">
-                    <span class="level-item">三月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/02/">
-                <span class="level-start">
-                    <span class="level-item">二月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/12/">
-                <span class="level-start">
-                    <span class="level-item">十二月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/11/">
-                <span class="level-start">
-                    <span class="level-item">十一月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">6</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://loveyuki.peteryjc.xin" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">LoveYuki</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">loveyuki.peteryjc.xin</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://skydai.github.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">陈情</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">skydai.github.io</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
-    
     
 </div>
 
