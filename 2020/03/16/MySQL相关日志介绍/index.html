@@ -19,7 +19,7 @@
 <meta property="og:description" content="简单介绍一下MySQL使用的相关日志，面试可能会问哦！">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2020-03-15T18:06:37.216Z">
+<meta property="og:updated_time" content="2020-03-15T18:11:41.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL相关日志介绍">
 <meta name="twitter:description" content="简单介绍一下MySQL使用的相关日志，面试可能会问哦！">
@@ -153,7 +153,7 @@ var _hmt = _hmt || [];
                 <span class="level-item has-text-grey">
                     
                     
-                    17 分钟 读完 (大约 2494 个字)
+                    17 分钟 读完 (大约 2492 个字)
                 </span>
                 
                 
@@ -179,13 +179,18 @@ var _hmt = _hmt || [];
 <h3 id="三、binlog和redo-log"><a href="#三、binlog和redo-log" class="headerlink" title="三、binlog和redo log"></a>三、binlog和redo log</h3><p>看到这里，你可能会想：binlog和redo log 这俩也太像了吧，都是用作”恢复“的。其实他俩除了”恢复”这块是相似的，很多都不一样，下面看我列一下。存储的内容上：</p>
 <ul>
 <li><strong>binlog记载的是update/delete/insert这样的SQL语句</strong></li>
-<li><strong>而redo log记载的是物理修改的内容（xxxx页修改了xxx）</strong><br>所以在搜索资料的时候会有这样的说法：redo log记录的是数据的物理变化，binlog 记录的是数据的逻辑变化功能redo log的作用是为持久化而生的。写完内存，如果数据库挂了，那我们可以通过redo log来恢复内存还没来得及刷到磁盘的数据，将redo log加载到内存里边，那内存就能恢复到挂掉之前的数据了。binlog的作用是复制和恢复而生的。主从服务器需要保持数据的一致性，通过binlog来同步数据。如果整个数据库的数据都被删除了，binlog存储着所有的数据变更情况，那么可以通过binlog来对数据进行恢复。又看到这里，你会想：”如果整个数据库的数据都被删除了，那我可以用redo log的记录来恢复吗？“不能因为功能的不同，redo log 存储的是物理数据的变更，如果我们内存的数据已经刷到了磁盘了，那redo log的数据就无效了。所以redo log不会存储着历史所有数据的变更，文件的内容会被覆盖的。</li>
+<li><strong>而redo log记载的是物理修改的内容（xxxx页修改了xxx）</strong></li>
 </ul>
+<p>所以在搜索资料的时候会有这样的说法：redo log记录的是数据的物理变化，binlog 记录的是数据的逻辑变化功能redo log的作用是为持久化而生的。写完内存，如果数据库挂了，那我们可以通过redo log来恢复内存还没来得及刷到磁盘的数据，将redo log加载到内存里边，那内存就能恢复到挂掉之前的数据了。binlog的作用是复制和恢复而生的。主从服务器需要保持数据的一致性，通过binlog来同步数据。如果整个数据库的数据都被删除了，binlog存储着所有的数据变更情况，那么可以通过binlog来对数据进行恢复。又看到这里，你会想：”如果整个数据库的数据都被删除了，那我可以用redo log的记录来恢复吗？“不能因为功能的不同，redo log 存储的是物理数据的变更，如果我们内存的数据已经刷到了磁盘了，那redo log的数据就无效了。所以redo log不会存储着历史所有数据的变更，文件的内容会被覆盖的。</p>
 <h4 id="binlog和redo-log写入的细节"><a href="#binlog和redo-log写入的细节" class="headerlink" title="binlog和redo log写入的细节"></a>binlog和redo log写入的细节</h4><p>redo log是MySQL的InnoDB引擎所产生的。binlog无论MySQL用什么引擎，都会有的。<strong>InnoDB是有事务的</strong>，事务的四大特性之一：<strong>持久性就是靠redo log来实现的</strong>（如果写入内存成功，但数据还没真正刷到磁盘，如果此时的数据库挂了，我们可以靠redo log来恢复内存的数据，这就实现了持久性）。上面也提到，在修改的数据的时候，binlog会记载着变更的类容，redo log也会记载着变更的内容。（只不过一个存储的是物理变化，一个存储的是逻辑变化）。</p>
 <p>那他们的写入顺序是什么样的呢？redo log事务开始的时候，就开始记录每次的变更信息，而binlog是在事务提交的时候才记录。于是新有的问题又出现了：</p>
-<h5 id="我写其中的某一个log，失败了，那会怎么办"><a href="#我写其中的某一个log，失败了，那会怎么办" class="headerlink" title="我写其中的某一个log，失败了，那会怎么办"></a>我写其中的某一个log，失败了，那会怎么办</h5><p>现在我们的前提是先写redo log，再写binlog，我们来看看：如果写redo log失败了，那我们就认为这次事务有问题，回滚，不再写binlog。如果写redo log成功了，写binlog，写binlog写一半了，但失败了怎么办？我们还是会对这次的事务回滚，将无效的binlog给删除（因为binlog会影响从库的数据，所以需要做删除操作）如果写redo log和binlog都成功了，那这次算是事务才会真正成功。简单来说：MySQL需要保证redo log和binlog的数据是一致的，如果不一致，那就乱套了。如果redo log写失败了，而binlog写成功了。那假设内存的数据还没来得及落磁盘，机器就挂掉了。那主从服务器的数据就不一致了。（从服务器通过binlog得到最新的数据，而主服务器由于redo log没有记载，没法恢复数据）如果redo log写成功了，而binlog写失败了。那从服务器就拿不到最新的数据了。<strong>MySQL通过两阶段提交来保证redo log和binlog的数据是一致的。</strong> 过程：<strong>阶段1：</strong>InnoDBredo log 写盘，InnoDB 事务进入 prepare 状态 <strong>阶段2：</strong>binlog 写盘，InooDB 事务进入commit状态，每个事务binlog的末尾，会记录一个XID event，标志着事务是否提交成功，也就是说，恢复过程中，binlog 最后一个 XID event 之后的内容都应该被 purge。</p>
+<h5 id="我写其中的某一个log，失败了，那会怎么办"><a href="#我写其中的某一个log，失败了，那会怎么办" class="headerlink" title="我写其中的某一个log，失败了，那会怎么办"></a>我写其中的某一个log，失败了，那会怎么办</h5><p>现在我们的前提是先写redo log，再写binlog，我们来看看：如果写redo log失败了，那我们就认为这次事务有问题，回滚，不再写binlog。如果写redo log成功了，写binlog，写binlog写一半了，但失败了怎么办？我们还是会对这次的事务回滚，将无效的binlog给删除（因为binlog会影响从库的数据，所以需要做删除操作）如果写redo log和binlog都成功了，那这次算是事务才会真正成功。简单来说：MySQL需要保证redo log和binlog的数据是一致的，如果不一致，那就乱套了。如果redo log写失败了，而binlog写成功了。那假设内存的数据还没来得及落磁盘，机器就挂掉了。那主从服务器的数据就不一致了。（从服务器通过binlog得到最新的数据，而主服务器由于redo log没有记载，没法恢复数据）如果redo log写成功了，而binlog写失败了。那从服务器就拿不到最新的数据了。<strong>MySQL通过两阶段提交来保证redo log和binlog的数据是一致的。</strong><br>过程：</p>
+<ul>
+<li><strong>阶段1：</strong>InnoDBredo log 写盘，InnoDB事务进入prepare状态</li>
+<li><strong>阶段2：</strong>binlog 写盘，InooDB 事务进入commit状态，每个事务binlog的末尾，会记录一个XID event，标志着事务是否提交成功，也就是说，恢复过程中，binlog 最后一个 XID event 之后的内容都应该被 purge。</li>
+</ul>
 <h3 id="四、什么是undo-log"><a href="#四、什么是undo-log" class="headerlink" title="四、什么是undo log"></a>四、什么是undo log</h3><p><strong>undo log</strong>主要有两个作用：回滚和多版本控制(MVCC)在数据修改的时候，不仅记录了redo log，还记录undo log，如果因为某些原因导致事务失败或回滚了，可以用undo log进行回滚undo log主要存储的也是逻辑日志，比如我们要insert一条数据了，那undo log会记录的一条对应的delete日志。我们要update一条记录时，它会记录一条对应相反的update记录。这也应该容易理解，毕竟回滚嘛，跟需要修改的操作相反就好，这样就能达到回滚的目的。因为支持回滚操作，所以我们就能保证：“一个事务包含多个操作，这些操作要么全部执行，要么全都不执行”。【原子性】因为undo log存储着修改之前的数据，相当于一个前版本，MVCC实现的是读写不阻塞，读的时候只要返回前一个版本的数据就行了。</p>
-<h3 id="最后这篇文章把binlog-redo-log-undo-log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）"><a href="#最后这篇文章把binlog-redo-log-undo-log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）" class="headerlink" title="最后这篇文章把binlog /redo log/undo log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）"></a>最后这篇文章把binlog /redo log/undo log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）</h3><p>参考链接：<br><a href="https://zhuanlan.zhihu.com/p/112106862" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/112106862</a><br><a href="https://www.jianshu.com/p/4bcfffb27ed5" target="_blank" rel="noopener">https://www.jianshu.com/p/4bcfffb27ed5</a><br><a href="https://www.cnblogs.com/myseries/p/10728533.html" target="_blank" rel="noopener">https://www.cnblogs.com/myseries/p/10728533.html</a></p>
+<h3 id="这篇文章把binlog-redo-log-undo-log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）"><a href="#这篇文章把binlog-redo-log-undo-log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）" class="headerlink" title="这篇文章把binlog /redo log/undo log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）"></a>这篇文章把binlog /redo log/undo log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）</h3><p>参考链接：<br><a href="https://zhuanlan.zhihu.com/p/112106862" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/112106862</a><br><a href="https://www.jianshu.com/p/4bcfffb27ed5" target="_blank" rel="noopener">https://www.jianshu.com/p/4bcfffb27ed5</a><br><a href="https://www.cnblogs.com/myseries/p/10728533.html" target="_blank" rel="noopener">https://www.cnblogs.com/myseries/p/10728533.html</a></p>
 
         </div>
         
@@ -422,9 +427,9 @@ var _hmt = _hmt || [];
         <span class="has-mr-6">4</span>
         <span>四、什么是undo log</span>
         </a></li><li>
-        <a class="is-flex" href="#最后这篇文章把binlog-redo-log-undo-log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）">
+        <a class="is-flex" href="#这篇文章把binlog-redo-log-undo-log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）">
         <span class="has-mr-6">5</span>
-        <span>最后这篇文章把binlog /redo log/undo log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）</span>
+        <span>这篇文章把binlog /redo log/undo log最核心的知识给讲了，还有一些细节性的东西可以自行去补充（比如binlog有几种的模式，以及文章提到的刷盘策略等等）</span>
         </a></li></ul>
         </div>
     </div>
