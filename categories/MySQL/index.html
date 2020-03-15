@@ -7,22 +7,17 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>为什么说Python是伪多线程 - 世界第一半藏</title>
+<title>分类: MySQL - 世界第一半藏</title>
 
 
-    <meta name="description" content="学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 +">
-<meta name="keywords" content="面试,python">
-<meta property="og:type" content="article">
-<meta property="og:title" content="为什么说Python是伪多线程">
-<meta property="og:url" content="https://peteryjc.github.io/2019/11/22/python-GIL/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="世界第一半藏">
+<meta property="og:url" content="https://peteryjc.github.io/categories/MySQL/index.html">
 <meta property="og:site_name" content="世界第一半藏">
-<meta property="og:description" content="学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 +">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://peteryjc.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2020-03-01T14:16:19.211Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="为什么说Python是伪多线程">
-<meta name="twitter:description" content="学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 1 +">
+<meta name="twitter:title" content="世界第一半藏">
 <meta name="twitter:image" content="https://peteryjc.github.io/images/og_image.png">
 <meta name="twitter:creator" content="@peteryangjc">
 <meta name="twitter:site" content="https://twitter.com/peteryangjc">
@@ -85,7 +80,7 @@ var _hmt = _hmt || [];
 
 <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="is-2-column">
+<body class="is-3-column">
     <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
@@ -132,168 +127,78 @@ var _hmt = _hmt || [];
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">分类</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">MySQL</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    
 <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-22T08:56:49.000Z">2019-11-22</time>
+                <time class="level-item has-text-grey" datetime="2020-03-15T17:50:18.000Z">2020-03-16</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Python原理/">Python原理</a>
+                <a class="has-link-grey -link" href="/categories/MySQL/">MySQL</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1727 个字)
+                    17 分钟 读完 (大约 2494 个字)
                 </span>
                 
-                
-                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
-                    <i class="far fa-eye"></i>
-                    <span id="busuanzi_value_page_pv">0</span>次访问
-                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                为什么说Python是伪多线程
+                <a class="has-link-black-ter" href="/2020/03/16/MySQL相关日志介绍/">MySQL相关日志介绍</a>
             
         </h1>
         <div class="content">
-            <p>学过操作系统的同学都知道，线程是现代操作系统底层一种轻量级的多任务机制。一个进程空间中可以存在多个线程，每个线程代表一条控制流，共享全局进程空间的变量，又有自己私有的内存空间。<br>多个线程可以同时执行。此处的“同时”，在较早的单核架构中表现为“伪并行”，即让线程以极短的时间间隔交替执行，从人的感觉上看它们就像在同时执行一样。但由于仅有一个运算单元，当线程皆执行计算密集型任务时，多线程可能会出现 <code>1 + 1 &gt; 2</code> 的反效果。</p>
-<a id="more"></a>
-
-<h3 id="GIL-是什么"><a href="#GIL-是什么" class="headerlink" title="GIL 是什么"></a>GIL 是什么</h3><p>GIL 的全名是 the Global Interpreter Lock （全局解释锁），是常规 python 解释器（当然，有些解释器没有）的核心部件。我们看看官方的解释：</p>
-<blockquote>
-<p>The Python interpreter is not fully thread-safe. In order to support multi-threaded Python programs, there’s a global lock, called the global interpreter lock or GIL, that must be held by the current thread before it can safely access Python objects.</p>
-</blockquote>
-<p><strong>这是一个用于保护 Python 内部对象的全局锁（在进程空间中唯一），保障了解释器的线程安全。</strong></p>
-<p>这里用一个形象的例子来说明 GIL 的必要性（对资源抢占问题非常熟悉的可以跳过不看）：</p>
-<blockquote>
-<p>我们把整个进程空间看做一个车间，把线程看成是多条不相交的流水线，把线程控制流中的字节码看作是流水线上待处理的物品。Python 解释器是工人，整个车间仅此一名。操作系统是一只上帝之手，会随时把工人从一条流水线调到另一条——这种“随时”是不由分说的，即不管处理完当前物品与否。若没有 GIL。假设工人正在流水线 A 处理 A1 物品，根据 A1 的需要将房间温度（一个全局对象）调到了 20 度。这时上帝之手发动了，工人被调到流水线 B 处理 B1 物品，根据 B1 的需要又将房间温度调到了 50 度。这时上帝之手又发动了，工人又调回 A 继续处理 A1。但此时 A1 暴露在了 50 度的环境中，安全问题就此产生了。而 GIL 相当于一条锁链，一旦工人开始处理某条流水线上的物品，GIL 便会将工人和该流水线锁在一起。而被锁住的工人只会处理该流水线上的物品。就算突然被调到另一条流水线，他也不会干活，而是干等至重新调回原来的流水线。这样每个物品在被处理的过程中便总是能保证全局环境不会突变。</p>
-</blockquote>
-<h3 id="该怎么提升效率呢"><a href="#该怎么提升效率呢" class="headerlink" title="该怎么提升效率呢"></a>该怎么提升效率呢</h3><p>GIL 是 Python 解释器正确运行的保证，Python 语言本身没有提供任何机制访问它。但在特定场合，我们仍有办法降低它对效率的影响。</p>
-<h4 id="使用多进程"><a href="#使用多进程" class="headerlink" title="使用多进程"></a>使用多进程</h4><p>线程间会竞争资源是因为它们共享同一个进程空间，但进程的内存空间是独立的，自然也就没有必要使用解释锁了。</p>
-<p>许多人非常忌讳使用多进程，理由是进程操作（创建、切换）的时间开销太大了，而且会占用更多的内存。这种担心其实没有必要——除非是对并发量要求很高的应用（如服务器），多进程增加的时空开销其实都在可以接受的范围中。更何况，我们可以使用进程池减少频繁创建进程带来的开销。</p>
-<h4 id="使用C拓展"><a href="#使用C拓展" class="headerlink" title="使用C拓展"></a>使用C拓展</h4><p>GIL 并不是完全的黑箱，CPython 在解释器层提供了控制 GIL 的开关——这就是 Py_BEGIN_ALLOW_THREADS 和 Py_END_ALLOW_THREADS 宏。这一对宏允许你在自定义的 C 扩展中释放 GIL，从而可以重新利用多核的优势。</p>
-<p>沿用上面的例子，自定义的 C 扩展函数好比是流水线上一个特殊的物品。这个物品承诺自己不依赖全局环境，同时也不会要求工人去改变全局环境。同时它带有 Py_BEGIN_ALLOW_THREADS 和 Py_END_ALLOW_THREADS 两个机关，前者能砍断 GIL 锁链，这样工人被调度走后不需要干等，而是可以直接干活；后者则将锁链重新锁上，保证操作的一致性。</p>
-<h3 id="面试的高频点"><a href="#面试的高频点" class="headerlink" title="面试的高频点"></a>面试的高频点</h3><p>有同学可能会奇怪了：我在使用 python 多线程写爬虫时可从来没有这种问题啊——用 4 个线程下载 4 个页面的时间与单线程下载一个页面的时间相差无几。</p>
-<p>这里就要谈到 GIL 的第二种释放时机了。除了调用 <code>Py_BEGIN_ALLOW_THREADS</code>，解释器还会在发生阻塞 IO（如网络、文件）时释放 GIL。发生阻塞 IO 时，调用方线程会被挂起，无法进行任何操作，直至内核返回；IO 函数一般是原子性的，这确保了调用的线程安全性。因此在大多数阻塞 IO 发生时，解释器没有理由加锁。</p>
-<p>以爬虫为例：当 Thread1 发起对 Page1 的请求后，Thread1 会被挂起，此时 GIL 释放。当控制流切换至 Thread2 时，由于没有 GIL，不必干等，而是可以直接请求 Page2……如此一来，四个请求可以认为是几乎同时发起的。时间开销便与单线程请求一次一样。</p>
-<p>有人反对使用阻塞IO，因为若想更好利用阻塞时的时间，必须使用多线程或进程，这样会有很大的上下文切换开销，而非阻塞 IO + 协程显然是更经济的方式。但当若干任务之间没有偏序关系时，一个任务阻塞是可以接受的（毕竟不会影响到其他任务的执行），同时也会简化程序的设计。而在一些通信模型（如 Publisher-Subscriber）中，“阻塞”是必要的语义。</p>
-<p>多个阻塞IO需要多条非抢占式的控制流来承载，这些工作交给线程再合适不过了。</p>
-
+            <p>简单介绍一下MySQL使用的相关日志，面试可能会问哦！</p>
         </div>
         
-        <div class="level is-size-7 is-uppercase">
+        
+        <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/python/">python</a>, <a class="has-link-grey -link" href="/tags/面试/">面试</a>
+                <a class="button is-size-7 is-light" href="/2020/03/16/MySQL相关日志介绍/#more">阅读更多</a>
                 </div>
             </div>
         </div>
         
         
-        
-        
-<div class="addthis_inline_share_toolbox"></div>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b5b901377caa996"></script>
-
-        
     </div>
 </div>
 
 
 
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<a class="button is-info donate">
-    <span class="icon is-small">
-        <i class="fab fa-alipay"></i>
-    </span>
-    <span>支付宝</span>
-    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
-</a>
-
-                
-                
-<a class="button is-success donate">
-    <span class="icon is-small">
-        <i class="fab fa-weixin"></i>
-    </span>
-    <span>微信</span>
-    <div class="qrcode"><img src="/images/wechatpay.jpg" alt="微信"></div>
-</a>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/11/28/K8s小练习/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">K8s小练习</span>
-            </a>
-        </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/18/simple-docker/">
-                <span class="level-item">Docker与LXC简介</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
-        </div>
-        
-    </div>
-</div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">评论</h3>
-        
-<div id="valine-thread" class="content"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-    new Valine({
-        el: '#valine-thread' ,
-        notify: false,
-        verify: false,
-        app_id: '5YP2IqekJJ7rMlMG3l9DSSRw-gzGzoHsz',
-        app_key: 'AxttSsP8e4PtWbSjnUuzeP7k',
-        placeholder: 'Say something...'
-    });
-</script>
-
-    </div>
-</div>
 </div>
                 
 
 
 
 
-<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left ">
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
     
         
 <div class="card widget">
@@ -662,7 +567,7 @@ var _hmt = _hmt || [];
 
     
     
-        <div class="column-right-shadow  ">
+        <div class="column-right-shadow is-hidden-widescreen ">
         
             
 
@@ -704,6 +609,219 @@ var _hmt = _hmt || [];
 
         
         </div>
+    
+</div>
+
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/03/16/MySQL相关日志介绍/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="MySQL相关日志介绍">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-15T17:50:18.000Z">2020-03-16</time></div>
+                    <a href="/2020/03/16/MySQL相关日志介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">MySQL相关日志介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/MySQL/">MySQL</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/14/RAID简单介绍/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="RAID简单介绍">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-14T09:31:43.000Z">2020-03-14</time></div>
+                    <a href="/2020/03/14/RAID简单介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">RAID简单介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/03/Gerrit权限控制/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Gerrit权限控制">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-03T10:33:19.000Z">2020-03-03</time></div>
+                    <a href="/2020/03/03/Gerrit权限控制/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Gerrit权限控制</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Gerrit/">Gerrit</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/02/28/SystemDesign/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="系统设计题">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-28T13:31:44.000Z">2020-02-28</time></div>
+                    <a href="/2020/02/28/SystemDesign/" class="title has-link-black-ter is-size-6 has-text-weight-normal">系统设计题</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/系统设计/">系统设计</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/02/27/moveagitlabrepotogerrit/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="迁移一个Gitlab项目至Gerrit">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-27T13:56:29.000Z">2020-02-27</time></div>
+                    <a href="/2020/02/27/moveagitlabrepotogerrit/" class="title has-link-black-ter is-size-6 has-text-weight-normal">迁移一个Gitlab项目至Gerrit</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Gitlab/">Gitlab</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://loveyuki.peteryjc.xin" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">LoveYuki</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">loveyuki.peteryjc.xin</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://skydai.github.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">陈情</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">skydai.github.io</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
     
 </div>
 
